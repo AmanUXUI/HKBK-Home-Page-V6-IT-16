@@ -104,7 +104,7 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
 
             {/* Right Column: Editorial Body Copy */}
             <div className="lg:col-span-7 space-y-8 text-base sm:text-lg text-[#333] leading-relaxed font-sans">
-              <p className="first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-[#8C1515] first-letter:mr-3 first-letter:float-left text-lg sm:text-xl text-[#222] leading-relaxed">
+              <p className="text-lg sm:text-xl text-[#222] leading-relaxed">
                 Welcome to the institution dedicated to creating tomorrow’s leaders and today’s pioneers. HKBK Group of Institutions has been consistent to maintain excellence in the academic standards since its inception. Our beautiful 17 Acre campus in the heart of Bangalore city inspires students to succeed professionally and personally in a competitive world. Full form of HKBK is "Have Knowledge Be Knowledgeable"Learning is an enjoyable experience here, with experienced faculty, inspiring libraries, large playgrounds and state-of-the-art labs.
               </p>
 

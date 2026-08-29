@@ -21,14 +21,16 @@ import Footer from "./components/Footer";
 import BottomBar from "./components/BottomBar";
 import InteractiveModal from "./components/InteractiveModal";
 import OverviewPage from "./components/OverviewPage";
+import VisionMissionPage from "./components/VisionMissionPage";
+import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<"home" | "overview">("home");
+  const [currentPage, setCurrentPage] = useState<PageType>("home");
   const [activeTab, setActiveTab] = useState("home");
   const [modalType, setModalType] = useState<"apply" | "login" | "callback" | null>(null);
 
-  const handleNavigate = (page: "home" | "overview") => {
+  const handleNavigate = (page: PageType) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -111,6 +113,12 @@ export default function App() {
         <OverviewPage 
           onOpenApplyModal={() => handleOpenModal("apply")}
           onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : currentPage === "vision-mission" ? (
+        <VisionMissionPage 
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onNavigateHome={() => handleNavigate("home")}
+          onNavigateOverview={() => handleNavigate("overview")}
         />
       ) : (
         <>

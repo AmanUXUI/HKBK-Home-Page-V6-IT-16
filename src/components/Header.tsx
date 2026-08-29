@@ -16,11 +16,13 @@ import {
   ArrowRight
 } from "lucide-react";
 
+export type PageType = "home" | "overview" | "vision-mission";
+
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tabId: string) => void;
-  currentPage?: "home" | "overview";
-  onNavigate?: (page: "home" | "overview") => void;
+  currentPage?: PageType;
+  onNavigate?: (page: PageType) => void;
   onOpenApplyModal: () => void;
   onOpenLoginModal: () => void;
 }
@@ -56,7 +58,7 @@ export default function Header({
     title: string;
     categories: {
       heading: string;
-      options: { label: string; targetId?: string; targetPage?: "home" | "overview"; isAction?: boolean }[];
+      options: { label: string; targetId?: string; targetPage?: PageType; isAction?: boolean }[];
     }[];
     featuredImage?: string;
     featuredTitle?: string;
@@ -69,7 +71,7 @@ export default function Header({
           heading: "Who We Are",
           options: [
             { label: "Overview", targetPage: "overview" },
-            { label: "Vision & Mission", targetId: "highlights" },
+            { label: "Vision & Mission", targetPage: "vision-mission" },
             { label: "Leadership", targetId: "our-team" },
             { label: "Core Values", targetId: "highlights" },
             { label: "Recognition & Approvals", targetId: "credibility-rankings" },
