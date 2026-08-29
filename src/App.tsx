@@ -20,14 +20,23 @@ import FAQs from "./components/FAQs";
 import Footer from "./components/Footer";
 import BottomBar from "./components/BottomBar";
 import InteractiveModal from "./components/InteractiveModal";
+import OverviewPage from "./components/OverviewPage";
 import { AnimatePresence } from "motion/react";
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<"home" | "overview">("home");
   const [activeTab, setActiveTab] = useState("home");
   const [modalType, setModalType] = useState<"apply" | "login" | "callback" | null>(null);
 
+  const handleNavigate = (page: "home" | "overview") => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   // Scrollspy to detect active section in view
   useEffect(() => {
+    if (currentPage !== "home") return;
+
     const sections = [
       "home",
       "institutes",
@@ -68,7 +77,7 @@ export default function App() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [currentPage]);
 
   const handleOpenModal = (type: "apply" | "login" | "callback") => {
     setModalType(type);
@@ -92,46 +101,71 @@ export default function App() {
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        currentPage={currentPage}
+        onNavigate={handleNavigate}
         onOpenApplyModal={() => handleOpenModal("apply")}
         onOpenLoginModal={() => handleOpenModal("login")}
       />
 
-      {/* Main Authentic Hero Section (Screenshot Replica) */}
-      <Hero
-        onOpenApplyModal={() => handleOpenModal("apply")}
-        onExploreClick={scrollToProgrammes}
-      />
+      {currentPage === "overview" ? (
+        <OverviewPage 
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : (
+        <>
+          {/* Main Authentic Hero Section (Screenshot Replica) */}
+          <Hero
+            onOpenApplyModal={() => handleOpenModal("apply")}
+            onExploreClick={scrollToProgrammes}
+          />
 
-      {/* Credibility and Rankings Section */}
-      <CredibilityRankings />
+          {/* Credibility and Rankings Section */}
+          <CredibilityRankings />
 
-      {/* Our Institutes Section */}
-      <OurInstitutes />
+          {/* Our Institutes Section */}
+          <OurInstitutes />
 
-      {/* Beautiful Bento-style Key Highlights Section (Screenshot Replica) */}
-      <KeyHighlights />
+          {/* Beautiful Bento-style Key Highlights Section (Screenshot Replica) */}
+          <KeyHighlights />
 
-      <FindCourse onOpenApplyModal={() => handleOpenModal("apply")} />
+          <FindCourse onOpenApplyModal={() => handleOpenModal("apply")} />
 
-      {/* Dynamic Sub-sections */}
-      <Programmes onOpenApplyModal={() => handleOpenModal("apply")} />
-      <SuccessRoadmap />
-      <ScrollStory />
-      <ProjectsResearch />
-      <CareerSuccess />
-      <PlacementBooklet />
-      <OurTeam />
-      <CampusLife />
-      <StudentSuccessStories />
-      <NewsEvents />
-      <AdmissionProcess />
-      <FAQs />
+          {/* Dynamic Sub-sections */}
+          <Programmes onOpenApplyModal={() => handleOpenModal("apply")} />
+          <SuccessRoadmap />
+          <ScrollStory />
+          <ProjectsResearch />
+          <CareerSuccess />
+          <PlacementBooklet />
+          <OurTeam />
+          <CampusLife />
+          <StudentSuccessStories />
+          <NewsEvents />
+          <AdmissionProcess />
+          <FAQs />
+        </>
+      )}
+
       <Footer />
 
       {/* Sticky Bottom Tab Bar (Highlights bar) */}
       <BottomBar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={(tabId) => {
+          if (currentPage !== "home") {
+            setCurrentPage("home");
+            setTimeout(() => {
+              setActiveTab(tabId);
+              const element = document.getElementById(tabId);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }, 100);
+          } else {
+            setActiveTab(tabId);
+          }
+        }}
         onOpenCallbackModal={() => handleOpenModal("callback")}
       />
 

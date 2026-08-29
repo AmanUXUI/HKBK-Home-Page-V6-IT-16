@@ -19,11 +19,20 @@ import {
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tabId: string) => void;
+  currentPage?: "home" | "overview";
+  onNavigate?: (page: "home" | "overview") => void;
   onOpenApplyModal: () => void;
   onOpenLoginModal: () => void;
 }
 
-export default function Header({ activeTab, setActiveTab, onOpenApplyModal, onOpenLoginModal }: HeaderProps) {
+export default function Header({ 
+  activeTab, 
+  setActiveTab, 
+  currentPage = "home",
+  onNavigate,
+  onOpenApplyModal, 
+  onOpenLoginModal 
+}: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -47,7 +56,7 @@ export default function Header({ activeTab, setActiveTab, onOpenApplyModal, onOp
     title: string;
     categories: {
       heading: string;
-      options: { label: string; targetId?: string; isAction?: boolean }[];
+      options: { label: string; targetId?: string; targetPage?: "home" | "overview"; isAction?: boolean }[];
     }[];
     featuredImage?: string;
     featuredTitle?: string;
@@ -59,7 +68,7 @@ export default function Header({ activeTab, setActiveTab, onOpenApplyModal, onOp
         {
           heading: "Who We Are",
           options: [
-            { label: "Overview", targetId: "highlights" },
+            { label: "Overview", targetPage: "overview" },
             { label: "Vision & Mission", targetId: "highlights" },
             { label: "Leadership", targetId: "our-team" },
             { label: "Core Values", targetId: "highlights" },
@@ -344,12 +353,23 @@ export default function Header({ activeTab, setActiveTab, onOpenApplyModal, onOp
   };
 
   const handleLinkClick = (id: string) => {
-    setActiveTab(id);
-    setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (currentPage !== "home" && onNavigate) {
+      onNavigate("home");
+      setTimeout(() => {
+        setActiveTab(id);
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    } else {
+      setActiveTab(id);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
+    setMobileMenuOpen(false);
   };
 
   const handleDropdownToggle = (menu: string) => {
@@ -585,7 +605,9 @@ export default function Header({ activeTab, setActiveTab, onOpenApplyModal, onOp
                         <div
                           key={optIdx}
                           onClick={() => {
-                            if (opt.isAction) {
+                            if (opt.targetPage && onNavigate) {
+                              onNavigate(opt.targetPage);
+                            } else if (opt.isAction) {
                               onOpenApplyModal();
                             } else if (opt.targetId) {
                               handleLinkClick(opt.targetId);
@@ -690,7 +712,9 @@ export default function Header({ activeTab, setActiveTab, onOpenApplyModal, onOp
                             <button
                               key={optIdx}
                               onClick={() => {
-                                if (opt.isAction) {
+                                if (opt.targetPage && onNavigate) {
+                                  onNavigate(opt.targetPage);
+                                } else if (opt.isAction) {
                                   onOpenApplyModal();
                                 } else if (opt.targetId) {
                                   handleLinkClick(opt.targetId);

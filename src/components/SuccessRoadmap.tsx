@@ -432,7 +432,7 @@ export default function SuccessRoadmap() {
         </div>
 
         {/* 2. TOP DISCIPLINE FILTER BUTTONS WITH SEAMLESS INVERTED-CORNER TAB INTERSECTION */}
-        <div className="flex items-end space-x-2 sm:space-x-3 overflow-x-auto no-scrollbar pt-6 pl-0 pr-2 relative z-20 -mb-[1px]">
+        <div className="flex items-end flex-wrap sm:flex-nowrap gap-2 sm:gap-3 pt-6 pl-0 pr-2 relative z-20 -mb-[1px]">
           {ROADMAP_CONFIG.map((discipline, idx) => {
             const isActive = activeDisciplineId === discipline.id;
             const isFirst = idx === 0;

@@ -527,7 +527,7 @@ export default function Programmes({ onOpenApplyModal }: ProgrammesProps) {
           </div>
           
           <h2 className="font-serif font-medium text-[38px] sm:text-[50px] leading-[1.05] tracking-tight text-white mb-4">
-            Academic <span className="text-[#FFD700]">Pathways</span>
+            Academic <span className="text-white">Pathways</span>
           </h2>
 
           <p className="font-sans text-[15px] sm:text-[16px] text-white/80 leading-[1.75] max-w-2xl mx-auto">
