@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix: HKBK Website v3",
+  "description": "High-fidelity, interactive replica of Scaler School of Technology\u0027s hero section, featuring smooth navigation tabs, program insights, custom logos, and dynamic modals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
