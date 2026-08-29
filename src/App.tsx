@@ -22,6 +22,7 @@ import BottomBar from "./components/BottomBar";
 import InteractiveModal from "./components/InteractiveModal";
 import OverviewPage from "./components/OverviewPage";
 import VisionMissionPage from "./components/VisionMissionPage";
+import LeadershipPage from "./components/LeadershipPage";
 import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
@@ -119,6 +120,13 @@ export default function App() {
           onOpenApplyModal={() => handleOpenModal("apply")}
           onNavigateHome={() => handleNavigate("home")}
           onNavigateOverview={() => handleNavigate("overview")}
+        />
+      ) : currentPage === "leadership" ? (
+        <LeadershipPage 
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onNavigateHome={() => handleNavigate("home")}
+          onNavigateOverview={() => handleNavigate("overview")}
+          onNavigateVisionMission={() => handleNavigate("vision-mission")}
         />
       ) : (
         <>

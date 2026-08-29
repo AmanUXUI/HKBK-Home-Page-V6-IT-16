@@ -16,7 +16,7 @@ import {
   ArrowRight
 } from "lucide-react";
 
-export type PageType = "home" | "overview" | "vision-mission";
+export type PageType = "home" | "overview" | "vision-mission" | "leadership";
 
 interface HeaderProps {
   activeTab: string;
@@ -72,7 +72,7 @@ export default function Header({
           options: [
             { label: "Overview", targetPage: "overview" },
             { label: "Vision & Mission", targetPage: "vision-mission" },
-            { label: "Leadership", targetId: "our-team" },
+            { label: "Leadership", targetPage: "leadership" },
             { label: "Core Values", targetId: "highlights" },
             { label: "Recognition & Approvals", targetId: "credibility-rankings" },
             { label: "Awards & Rankings", targetId: "credibility-rankings" },
