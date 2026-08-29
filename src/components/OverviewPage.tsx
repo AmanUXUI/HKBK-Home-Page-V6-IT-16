@@ -45,12 +45,12 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
 
           <div className="max-w-4xl">
             <h1 className="font-serif font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight text-white leading-[1.1] mb-6">
-              ABOUT HKBK GROUP OF INSTITUTIONS
+              About HKBK Group of Institutions
             </h1>
 
             <div className="pt-2">
-              <p className="font-mono text-sm sm:text-base font-bold text-[#FFD700] tracking-[0.2em] uppercase">
-                LEGACY OF EXCELLENCE SINCE 1997
+              <p className="font-mono text-sm sm:text-base font-bold text-[#FFD700] tracking-[0.2em]">
+                Legacy of Excellence Since 1997
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
               WELCOME TO HKBK!
             </span>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-              CHAIRMAN'S MESSAGE
+              Chairman's Message
             </h2>
           </div>
 
@@ -192,7 +192,7 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
               WELCOME TO HKBK!
             </span>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-              DIRECTOR'S MESSAGE
+              Director's Message
             </h2>
           </div>
 
@@ -240,7 +240,7 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
               WELCOME TO HKBK!
             </span>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-              PRINCIPAL'S MESSAGE
+              Principal's Message
             </h2>
           </div>
 
@@ -277,7 +277,7 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
                 </span>
               </div>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-                ADMINISTRATION
+                Administration
               </h2>
             </div>
             <p className="text-xs text-[#777] font-mono mt-3 sm:mt-0 uppercase tracking-widest">
@@ -402,7 +402,7 @@ export default function OverviewPage({ onOpenApplyModal, onNavigateHome }: Overv
               </span>
             </div>
             <h2 className="font-serif font-bold text-3xl sm:text-5xl text-[#1A1A1A] tracking-tight">
-              PLACEMENT STATISTICS
+              Placement Statistics
             </h2>
           </div>
 

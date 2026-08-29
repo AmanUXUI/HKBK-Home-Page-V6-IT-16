@@ -16,7 +16,7 @@ import {
   ArrowRight
 } from "lucide-react";
 
-export type PageType = "home" | "overview" | "vision-mission" | "leadership";
+export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals";
 
 interface HeaderProps {
   activeTab: string;
@@ -73,8 +73,8 @@ export default function Header({
             { label: "Overview", targetPage: "overview" },
             { label: "Vision & Mission", targetPage: "vision-mission" },
             { label: "Leadership", targetPage: "leadership" },
+            { label: "Recognition & Approvals", targetPage: "recognition-approvals" },
             { label: "Core Values", targetId: "highlights" },
-            { label: "Recognition & Approvals", targetId: "credibility-rankings" },
             { label: "Awards & Rankings", targetId: "credibility-rankings" },
             { label: "Institutional Social Responsibility", targetId: "campus-life" },
             { label: "HKBK Edge", targetId: "highlights" },

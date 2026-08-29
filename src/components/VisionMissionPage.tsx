@@ -52,12 +52,12 @@ export default function VisionMissionPage({
 
           <div className="max-w-4xl">
             <h1 className="font-serif font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight text-white leading-[1.1] mb-6">
-              VISION & MISSION
+              Vision & Mission
             </h1>
 
             <div className="pt-2">
-              <p className="font-mono text-sm sm:text-base font-bold text-[#FFD700] tracking-[0.2em] uppercase">
-                GUIDING PRINCIPLES & INSTITUTIONAL PURPOSE
+              <p className="font-mono text-sm sm:text-base font-bold text-[#FFD700] tracking-[0.2em]">
+                Guiding Principles & Institutional Purpose
               </p>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function VisionMissionPage({
               </div>
               
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight leading-tight">
-                OUR VISION
+                Our Vision
               </h2>
               
               <p className="text-sm sm:text-base text-[#666] leading-relaxed font-sans">
@@ -179,7 +179,7 @@ export default function VisionMissionPage({
                 </span>
               </div>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-                OUR MISSION
+                Our Mission
               </h2>
             </div>
             <p className="text-xs text-[#777] font-mono mt-3 sm:mt-0 uppercase tracking-widest">

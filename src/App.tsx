@@ -23,6 +23,7 @@ import InteractiveModal from "./components/InteractiveModal";
 import OverviewPage from "./components/OverviewPage";
 import VisionMissionPage from "./components/VisionMissionPage";
 import LeadershipPage from "./components/LeadershipPage";
+import RecognitionApprovalsPage from "./components/RecognitionApprovalsPage";
 import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
@@ -127,6 +128,12 @@ export default function App() {
           onNavigateHome={() => handleNavigate("home")}
           onNavigateOverview={() => handleNavigate("overview")}
           onNavigateVisionMission={() => handleNavigate("vision-mission")}
+        />
+      ) : currentPage === "recognition-approvals" ? (
+        <RecognitionApprovalsPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onNavigateHome={() => handleNavigate("home")}
+          onNavigateOverview={() => handleNavigate("overview")}
         />
       ) : (
         <>

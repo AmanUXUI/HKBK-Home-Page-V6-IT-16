@@ -55,12 +55,12 @@ export default function LeadershipPage({
 
           <div className="max-w-4xl">
             <h1 className="font-serif font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight text-white leading-[1.1] mb-6">
-              CAMPUS LEADERSHIP
+              Campus Leadership
             </h1>
 
             <div className="pt-2">
-              <p className="font-mono text-sm sm:text-base font-bold text-[#FFD700] tracking-[0.2em] uppercase">
-                VISIONARY GOVERNANCE & ACADEMIC STEWARDSHIP
+              <p className="font-mono text-sm sm:text-base font-bold text-[#FFD700] tracking-[0.2em]">
+                Visionary Governance & Academic Stewardship
               </p>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function LeadershipPage({
                 </span>
               </div>
               <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1A1A1A] tracking-tight">
-                GOVERNORS
+                Governors
               </h2>
             </div>
             <p className="text-xs text-[#777] font-mono mt-2 sm:mt-0 uppercase tracking-widest">
@@ -178,7 +178,7 @@ export default function LeadershipPage({
                 </span>
               </div>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-                LEADERSHIP TEAM
+                Leadership Team
               </h2>
             </div>
             <p className="text-xs text-[#777] font-mono mt-3 sm:mt-0 uppercase tracking-widest">
@@ -273,7 +273,7 @@ export default function LeadershipPage({
                 </span>
               </div>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-                ADMINISTRATION
+                Administration
               </h2>
             </div>
             <p className="text-xs text-[#777] font-mono mt-3 sm:mt-0 uppercase tracking-widest">
