@@ -67,103 +67,96 @@ export default function LeadershipPage({
         </div>
       </section>
 
-      {/* 2. Board of Governors Section - Editorial & Structured Layout */}
-      <section className="py-20 px-4 sm:px-6 lg:px-12 border-b border-[#E5E0D5]">
+      {/* 2. Board of Governors Section - Modern Bento Rectangular Cards */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-12 border-b border-[#E5E0D5] bg-[#FCFBF7]/50">
         <div className="max-w-6xl mx-auto">
           
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-[#E5E0D5]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-[#E5E0D5]">
             <div>
-              <div className="flex items-center mb-2">
+              <div className="flex items-center mb-1.5">
                 <span className="text-[#8C1515] font-mono text-xs font-bold tracking-[0.25em] uppercase">
-                  Institutional Governance
+                  Campus Leadership
                 </span>
               </div>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
+              <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1A1A1A] tracking-tight">
                 GOVERNORS
               </h2>
             </div>
-            <p className="text-xs text-[#777] font-mono mt-3 sm:mt-0 uppercase tracking-widest">
-              Board of Management & Founders
+            <p className="text-xs text-[#777] font-mono mt-2 sm:mt-0 uppercase tracking-widest">
+              Board of Management & Governance
             </p>
           </div>
 
-          <div className="space-y-16 lg:space-y-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             
-            {/* Governor 1: C.M. Ibrahim (Chairman) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-              <div className="lg:col-span-4">
-                <div className="relative aspect-[4/5] w-full max-w-sm rounded-lg overflow-hidden bg-neutral-100 border border-[#DCD6C8] shadow-sm">
-                  <img
-                    src="https://imgh.in/host/yxnbzh"
-                    alt="C.M. Ibrahim - Chairman"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
+            {/* Bento Card 1: C.M. Ibrahim */}
+            <div className="group relative overflow-hidden rounded-xl border border-[#E5E0D5] bg-white hover:border-[#8C1515]/40 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col sm:flex-row">
+              <div className="relative w-full sm:w-44 md:w-40 lg:w-48 h-64 sm:h-auto shrink-0 bg-[#F4F1EA] overflow-hidden border-b sm:border-b-0 sm:border-r border-[#E5E0D5]">
+                <img
+                  src="https://imgh.in/host/yxnbzh"
+                  alt="C.M. Ibrahim"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-
-              <div className="lg:col-span-8 space-y-6">
-                <div>
-                  <div className="inline-flex items-center space-x-2 text-[#8C1515] font-mono text-xs font-bold tracking-wider uppercase mb-2">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Chairman, HKBK Group of Institutions</span>
+              
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 space-y-4">
+                <div className="space-y-3">
+                  <span className="inline-flex items-center text-[11px] font-mono font-bold text-[#8C1515] uppercase tracking-wider bg-[#8C1515]/6 px-2.5 py-1 rounded-md">
+                    Leadership
+                  </span>
+                  <div>
+                    <h3 className="font-serif font-bold text-2xl text-[#1A1A1A] tracking-tight group-hover:text-[#8C1515] transition-colors">
+                      C.M. IBRAHIM
+                    </h3>
+                    <p className="text-sm font-semibold text-[#8C1515] mt-1">
+                      Chairman
+                    </p>
+                    <p className="text-xs text-[#666] font-sans mt-0.5">
+                      HKBK College of Engineering
+                    </p>
                   </div>
-                  <h3 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-                    C.M. IBRAHIM
-                  </h3>
-                  <p className="text-xs font-mono text-[#777] uppercase tracking-wider mt-1">
-                    HKBK College of Engineering
-                  </p>
                 </div>
 
-                <div className="space-y-4 text-base sm:text-lg text-[#333] leading-relaxed font-sans">
-                  <p>
-                    As the Chairman and visionary founder of HKBK College of Engineering, C.M. Ibrahim has spearheaded the institution's commitment to delivering inclusive, high-caliber technical education rooted in enduring ethical values.
-                  </p>
-                  <p>
-                    Under his governance, the institution has continually expanded its academic infrastructure, forging ties with leading global industries and nurturing an environment where students from diverse backgrounds realize their highest intellectual potential.
-                  </p>
+                <div className="pt-4 border-t border-[#F0EBE1] flex items-center justify-between text-xs text-[#777] font-mono">
+                  <span>Executive Governance</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C1515]/40 group-hover:bg-[#8C1515] transition-colors" />
                 </div>
               </div>
             </div>
 
-            {/* Subtle Divider between Governors */}
-            <div className="border-t border-[#E5E0D5]" />
-
-            {/* Governor 2: C.M. Faiz (Director) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-              <div className="lg:col-span-4 lg:order-2">
-                <div className="relative aspect-[4/5] w-full max-w-sm rounded-lg overflow-hidden bg-neutral-100 border border-[#DCD6C8] shadow-sm">
-                  <img
-                    src="https://imgh.in/host/savg5i"
-                    alt="C.M. Faiz - Director"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
+            {/* Bento Card 2: C.M. Faiz */}
+            <div className="group relative overflow-hidden rounded-xl border border-[#E5E0D5] bg-white hover:border-[#8C1515]/40 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col sm:flex-row">
+              <div className="relative w-full sm:w-44 md:w-40 lg:w-48 h-64 sm:h-auto shrink-0 bg-[#F4F1EA] overflow-hidden border-b sm:border-b-0 sm:border-r border-[#E5E0D5]">
+                <img
+                  src="https://imgh.in/host/savg5i"
+                  alt="C.M. Faiz"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-
-              <div className="lg:col-span-8 lg:order-1 space-y-6">
-                <div>
-                  <div className="inline-flex items-center space-x-2 text-[#8C1515] font-mono text-xs font-bold tracking-wider uppercase mb-2">
-                    <Award className="w-4 h-4" />
-                    <span>Director, HKBK Group of Institutions</span>
+              
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 space-y-4">
+                <div className="space-y-3">
+                  <span className="inline-flex items-center text-[11px] font-mono font-bold text-[#8C1515] uppercase tracking-wider bg-[#8C1515]/6 px-2.5 py-1 rounded-md">
+                    Leadership
+                  </span>
+                  <div>
+                    <h3 className="font-serif font-bold text-2xl text-[#1A1A1A] tracking-tight group-hover:text-[#8C1515] transition-colors">
+                      C.M. FAIZ
+                    </h3>
+                    <p className="text-sm font-semibold text-[#8C1515] mt-1">
+                      Director
+                    </p>
+                    <p className="text-xs text-[#666] font-sans mt-0.5">
+                      HKBK College of Engineering
+                    </p>
                   </div>
-                  <h3 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
-                    C.M. FAIZ
-                  </h3>
-                  <p className="text-xs font-mono text-[#777] uppercase tracking-wider mt-1">
-                    HKBK College of Engineering
-                  </p>
                 </div>
 
-                <div className="space-y-4 text-base sm:text-lg text-[#333] leading-relaxed font-sans">
-                  <p>
-                    Serving on the Board of Governors as Director, C.M. Faiz drives strategic growth, operational excellence, and industry-academic alignment across all constituent institutions.
-                  </p>
-                  <p>
-                    His progressive leadership fosters an ecosystem that emphasizes technological competence, entrepreneurship, and comprehensive student empowerment.
-                  </p>
+                <div className="pt-4 border-t border-[#F0EBE1] flex items-center justify-between text-xs text-[#777] font-mono">
+                  <span>Strategic Direction</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C1515]/40 group-hover:bg-[#8C1515] transition-colors" />
                 </div>
               </div>
             </div>
