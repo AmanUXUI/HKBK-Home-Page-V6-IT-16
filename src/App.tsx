@@ -157,25 +157,16 @@ export default function App() {
 
       <Footer />
 
-      {/* Sticky Bottom Tab Bar (Highlights bar) */}
-      <BottomBar
-        activeTab={activeTab}
-        setActiveTab={(tabId) => {
-          if (currentPage !== "home") {
-            setCurrentPage("home");
-            setTimeout(() => {
-              setActiveTab(tabId);
-              const element = document.getElementById(tabId);
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            }, 100);
-          } else {
+      {/* Sticky Bottom Tab Bar (Highlights bar) - visible on Home page only */}
+      {currentPage === "home" && (
+        <BottomBar
+          activeTab={activeTab}
+          setActiveTab={(tabId) => {
             setActiveTab(tabId);
-          }
-        }}
-        onOpenCallbackModal={() => handleOpenModal("callback")}
-      />
+          }}
+          onOpenCallbackModal={() => handleOpenModal("callback")}
+        />
+      )}
 
       {/* Shared Interactive Modals */}
       <AnimatePresence>
