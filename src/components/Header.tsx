@@ -16,7 +16,7 @@ import {
   ArrowRight
 } from "lucide-react";
 
-export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals" | "awards-rankings" | "accreditation";
+export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals" | "awards-rankings" | "accreditation" | "iqac";
 
 interface HeaderProps {
   activeTab: string;
@@ -76,6 +76,7 @@ export default function Header({
             { label: "Recognition & Approvals", targetPage: "recognition-approvals" },
             { label: "Awards & Rankings", targetPage: "awards-rankings" },
             { label: "Accreditation", targetPage: "accreditation" },
+            { label: "IQAC", targetPage: "iqac" },
             { label: "Core Values", targetId: "highlights" },
             { label: "Institutional Social Responsibility", targetId: "campus-life" },
             { label: "HKBK Edge", targetId: "highlights" },
@@ -469,7 +470,7 @@ export default function Header({
 
           {/* Desktop Direct Links */}
           <div className="hidden lg:flex items-center space-x-4 text-[11px] font-extrabold tracking-wider text-white">
-            <button onClick={() => handleLinkClick("alumni")} className="hover:text-[#FFD700] hover:underline transition-colors uppercase cursor-pointer">Alumni</button>
+            <button onClick={() => { if (onNavigate) { onNavigate("iqac"); } else { handleLinkClick("iqac"); } }} className="hover:text-[#FFD700] hover:underline transition-colors uppercase cursor-pointer">IQAC</button>
             <span className="text-white/30 font-light">|</span>
             <button onClick={() => handleLinkClick("faqs")} className="hover:text-[#FFD700] hover:underline transition-colors uppercase cursor-pointer">Blogs</button>
             <span className="text-white/30 font-light">|</span>

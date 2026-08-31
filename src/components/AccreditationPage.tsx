@@ -19,13 +19,15 @@ interface AccreditationPageProps {
   onNavigateHome: () => void;
   onNavigateOverview?: () => void;
   onNavigateRecognitionApprovals?: () => void;
+  onNavigateIQAC?: () => void;
 }
 
 export default function AccreditationPage({ 
   onOpenApplyModal, 
   onNavigateHome,
   onNavigateOverview,
-  onNavigateRecognitionApprovals 
+  onNavigateRecognitionApprovals,
+  onNavigateIQAC
 }: AccreditationPageProps) {
   return (
     <div id="accreditation-page" className="w-full bg-[#FCFBF7] text-[#1A1A1A]">
@@ -222,6 +224,47 @@ export default function AccreditationPage({
 
           </div>
 
+        </div>
+      </section>
+
+      {/* Bottom Navigation Strip */}
+      <section className="py-8 px-4 sm:px-6 lg:px-12 bg-white border-t border-[#E5E0D5]">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#666]">
+          <div className="flex items-center space-x-4">
+            <button 
+              onClick={onNavigateHome}
+              className="hover:text-[#8C1515] transition-colors cursor-pointer flex items-center space-x-1"
+            >
+              <ArrowLeft className="w-3 h-3" />
+              <span>Back to Home</span>
+            </button>
+            {onNavigateOverview && (
+              <>
+                <span>•</span>
+                <button 
+                  onClick={onNavigateOverview}
+                  className="hover:text-[#8C1515] transition-colors cursor-pointer"
+                >
+                  About Overview
+                </button>
+              </>
+            )}
+            {onNavigateIQAC && (
+              <>
+                <span>•</span>
+                <button 
+                  onClick={onNavigateIQAC}
+                  className="hover:text-[#8C1515] transition-colors cursor-pointer text-[#8C1515] font-bold"
+                >
+                  Internal Quality Assurance Cell (IQAC)
+                </button>
+              </>
+            )}
+          </div>
+
+          <span className="text-[#888]">
+            HKBK Group of Institutions • NAAC Accreditation
+          </span>
         </div>
       </section>
 
