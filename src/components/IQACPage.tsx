@@ -23,9 +23,25 @@ import {
   Calendar,
   ExternalLink,
   ChevronRight,
+  ChevronDown,
   Sparkles,
   Laptop,
-  Lightbulb
+  Lightbulb,
+  FolderArchive,
+  Camera,
+  Scale,
+  HeartHandshake,
+  BookMarked,
+  UserCheck,
+  TrendingUp,
+  BarChart3,
+  Wallet,
+  ScrollText,
+  ClipboardList,
+  HandHelping,
+  Accessibility,
+  Microscope,
+  ShieldAlert
 } from "lucide-react";
 
 interface IQACPageProps {
@@ -43,6 +59,13 @@ export default function IQACPage({
 }: IQACPageProps) {
   const [activeStakeholderTab, setActiveStakeholderTab] = useState<number>(0);
   const [activeInfoTab, setActiveInfoTab] = useState<"composition" | "minutes" | "approvals" | "ict" | "seat-matrix">("composition");
+  const [openAccordions, setOpenAccordions] = useState<string[]>(["aqar"]);
+
+  const toggleAccordion = (id: string) => {
+    setOpenAccordions(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
 
   const qualityPolicies = [
     {
@@ -312,6 +335,92 @@ export default function IQACPage({
     { year: "2017-18", title: "Seat Matrix : 2017-18", active: false },
     { year: "2016-17", title: "Seat Matrix : 2016-17", active: false },
     { year: "2015-16", title: "Seat Matrix : 2015-16", active: false }
+  ];
+
+  // Data for Section 8: Quality Mandates & Institutional Compliance
+  const aqarData = {
+    annualReports: [
+      { year: "2022-23", title: "AQAR 2022-23" },
+      { year: "2021-22", title: "AQAR 2021-22" },
+      { year: "2020-21", title: "AQAR 2020-21" },
+      { year: "2019-20", title: "AQAR 2019-20" },
+      { year: "2018-19", title: "AQAR 2018-19" },
+      { year: "2017-18", title: "AQAR 2017-18" }
+    ],
+    criteria: [
+      { title: "6.5.1", desc: "Internal Quality Assurance System & Quality Initiatives" },
+      { title: "Institutional Strategic Plan", desc: "Institutional Strategic Deployment & Development Plan" }
+    ]
+  };
+
+  const naac2017Data = [
+    {
+      title: "Self Study Report",
+      cycle: "Cycle 1",
+      desc: "Comprehensive NAAC Self Study Report (SSR) 2017 submission."
+    }
+  ];
+
+  const studentSatisfactionSurveyData = [
+    { year: "2022-23", title: "Student Satisfaction Survey 2022-23" },
+    { year: "2021-22", title: "Student Satisfaction Survey 2021-22" },
+    { year: "2020-21", title: "Student Satisfaction Survey 2020-21" },
+    { year: "2019-20", title: "Student Satisfaction Survey 2019-20" }
+  ];
+
+  const rtiActData = [
+    {
+      title: "Statutory Declaration under Section 4(1)(b) of the RTI Act, 2005",
+      badge: "RTI ACT-2005",
+      desc: "Mandatory public statutory compliance disclosure as prescribed under Section 4(1)(b) of the Right to Information Act, 2005."
+    }
+  ];
+
+  const infrastructureData = [
+    { title: "Classrooms and Labs", category: "Geotagged Photos" },
+    { title: "Sensor Based Energy Conservation", category: "Geotagged Photos" },
+    { title: "Geotagged Photos 2020-21", category: "Geotagged Photos" },
+    { title: "Classrooms and Labs 2022-23", category: "Geotagged Photos" },
+    { title: "Classrooms & Master Time Table 2022-23", category: "Geotagged Photos" }
+  ];
+
+  const prospectusData = [
+    { year: "2019-20", title: "Prospectus 2019-20" },
+    { year: "2018-19", title: "Prospectus 2018-19" },
+    { year: "2017-18", title: "Prospectus 2017-18" },
+    { year: "2016-17", title: "Prospectus 2016-17" },
+    { year: "2015-16", title: "Prospectus 2015-16" }
+  ];
+
+  const nssActivitiesData = {
+    extensionActivities: [
+      { year: "2019-20", title: "Extension Activities 2019-20" },
+      { year: "2018-19", title: "Extension Activities 2018-19" },
+      { year: "2017-18", title: "Extension Activities 2017-18" },
+      { year: "2016-17", title: "Extension Activities 2016-17" },
+      { year: "2015-16", title: "Extension Activities 2015-16" }
+    ],
+    swachhBharat: [
+      { title: "Swach Bharath", category: "Swach Bharath extension activity" }
+    ]
+  };
+
+  const internshipData = [
+    {
+      academicYear: "2022-23",
+      label: "22-23",
+      items: [
+        { title: "Internship 1", desc: "Industry Internship Batch 2022-23" }
+      ]
+    },
+    {
+      academicYear: "2021-22",
+      label: "21-22",
+      items: [
+        { title: "Internship 1", desc: "Industry Internship Batch 2021-22 (Phase 1)" },
+        { title: "Internship 2", desc: "Industry Internship Batch 2021-22 (Phase 2)" }
+      ]
+    }
   ];
 
   return (
@@ -731,9 +840,6 @@ export default function IQACPage({
                     <h3 className="font-serif font-bold text-2xl sm:text-3xl text-[#1A1A1A]">
                       IQAC COMPOSITION
                     </h3>
-                    <p className="text-sm text-[#666] mt-1 font-mono">
-                      International Quality Assurance Cell
-                    </p>
                   </div>
                   <span className="font-mono text-xs text-[#777] bg-[#FAF8F5] px-3.5 py-1.5 rounded-md border border-[#E5E0D5] w-fit">
                     Active Committee
@@ -1061,6 +1167,2086 @@ export default function IQACPage({
               </div>
             </div>
           )}
+
+        </div>
+      </section>
+
+      {/* 8. Institutional Quality, Compliance & Extension Records (Accordion Menus) */}
+      <section className="py-20 px-4 sm:px-6 lg:px-12 bg-[#FCFBF7] border-b border-[#E5E0D5]">
+        <div className="max-w-6xl mx-auto">
+          
+          <div className="mb-10 border-b border-[#E5E0D5] pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="text-[#8C1515] font-mono text-xs font-bold tracking-[0.25em] uppercase block mb-2">
+                Institutional Repository
+              </span>
+              <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
+                Quality Mandates & Institutional Compliance
+              </h2>
+            </div>
+            <span className="text-xs font-mono text-[#777] uppercase tracking-wider shrink-0">
+              Statutory & Academic Disclosures
+            </span>
+          </div>
+
+          {/* Accordion Menu List */}
+          <div className="space-y-4">
+
+            {/* Accordion 1: AQAR */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("aqar") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("aqar")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("aqar") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Annual Quality Assurance
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      AQAR (Annual Quality Assurance Report)
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    2017 - 2023 & Criteria 6.5.1
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("aqar") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("aqar") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-8 animate-fade-in">
+                  {/* Annual AQAR Reports */}
+                  <div className="space-y-4">
+                    <h4 className="font-serif font-bold text-base sm:text-lg text-[#1A1A1A]">
+                      AQAR Submissions by Academic Year
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                      {aqarData.annualReports.map((aqar, idx) => (
+                        <div 
+                          key={idx}
+                          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                        >
+                          <div className="flex items-center space-x-3 min-w-0 pr-2">
+                            <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                              {aqar.year}
+                            </span>
+                            <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                              {aqar.title}
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => alert(`Downloading ${aqar.title} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Criteria Section */}
+                  <div className="pt-6 border-t border-[#E5E0D5] space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <FileCheck2 className="w-4 h-4 text-[#8C1515]" />
+                      <h4 className="font-serif font-bold text-base sm:text-lg text-[#1A1A1A]">
+                        Criteria Documentation & Strategic Plan
+                      </h4>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {aqarData.criteria.map((crit, cIdx) => (
+                        <div 
+                          key={cIdx}
+                          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                        >
+                          <div className="space-y-0.5 min-w-0 pr-3">
+                            <h5 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                              {crit.title}
+                            </h5>
+                            <p className="text-xs text-[#666] font-mono truncate">
+                              {crit.desc}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => alert(`Downloading ${crit.title} (PDF)`)}
+                            className="inline-flex items-center space-x-1.5 text-xs font-bold text-[#8C1515] bg-[#FAF8F5] hover:bg-[#8C1515] hover:text-white px-3 py-1.5 rounded-lg border border-[#E5E0D5] hover:border-[#8C1515] transition-all cursor-pointer shrink-0"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 2: NAAC 2017 */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("naac2017") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("naac2017")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("naac2017") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <GraduationCap className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Accreditation Archive
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      NAAC 2017 (NAAC SSR-2017)
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Self Study Report
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("naac2017") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("naac2017") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 animate-fade-in">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {naac2017Data.map((doc, idx) => (
+                      <div 
+                        key={idx}
+                        className="flex items-center justify-between p-5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                      >
+                        <div className="flex items-center space-x-3.5 min-w-0 pr-3">
+                          <div className="w-10 h-10 rounded-xl bg-[#8C1515]/10 text-[#8C1515] flex items-center justify-center shrink-0 group-hover:bg-[#8C1515] group-hover:text-white transition-colors">
+                            <GraduationCap className="w-5 h-5" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center space-x-2 mb-0.5">
+                              <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10">
+                                {doc.cycle}
+                              </span>
+                            </div>
+                            <h4 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors truncate">
+                              {doc.title}
+                            </h4>
+                            <p className="text-xs text-[#666] font-mono truncate">
+                              {doc.desc}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => alert(`Downloading NAAC 2017: ${doc.title} (PDF)`)}
+                          className="inline-flex items-center space-x-1.5 text-xs font-bold text-[#8C1515] bg-[#FAF8F5] hover:bg-[#8C1515] hover:text-white px-3.5 py-2 rounded-lg border border-[#E5E0D5] hover:border-[#8C1515] transition-all cursor-pointer shadow-2xs shrink-0"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>Download PDF</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 3: Student Satisfaction Survey */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("sss") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("sss")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("sss") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <UserCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Feedback & Evaluation
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Student Satisfaction Survey
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    4 Reports (2019 - 2023)
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("sss") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("sss") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 animate-fade-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    {studentSatisfactionSurveyData.map((sss, idx) => (
+                      <div 
+                        key={idx}
+                        className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                      >
+                        <div className="flex items-center space-x-3 min-w-0 pr-2">
+                          <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                            {sss.year}
+                          </span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                            {sss.title}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => alert(`Downloading ${sss.title} (PDF)`)}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 4: RTI ACT, 2005 */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("rti") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("rti")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("rti") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Scale className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Statutory Compliance
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      RTI Act, 2005
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Section 4(1)(b)
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("rti") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("rti") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 animate-fade-in">
+                  {rtiActData.map((rti, idx) => (
+                    <div 
+                      key={idx}
+                      className="flex flex-col sm:flex-row sm:items-center justify-between p-6 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group gap-4"
+                    >
+                      <div className="space-y-2 min-w-0">
+                        <span className="inline-block font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2.5 py-1 rounded border border-[#8C1515]/10">
+                          {rti.badge}
+                        </span>
+                        <h4 className="font-serif font-bold text-lg text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors leading-snug">
+                          {rti.title}
+                        </h4>
+                        <p className="text-xs text-[#666] font-mono">
+                          {rti.desc}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => alert(`Downloading ${rti.title} (PDF)`)}
+                        className="inline-flex items-center space-x-1.5 text-xs font-bold text-[#8C1515] bg-[#FAF8F5] hover:bg-[#8C1515] hover:text-white px-4 py-2.5 rounded-lg border border-[#E5E0D5] hover:border-[#8C1515] transition-all cursor-pointer shadow-2xs shrink-0 self-start sm:self-center"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span>Download Statutory PDF</span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 5: INFRASTRUCTURE */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("infrastructure") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("infrastructure")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("infrastructure") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Building2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Campus & Facilities
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Infrastructure
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Geotagged Photos
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("infrastructure") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("infrastructure") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <div className="flex items-center space-x-2">
+                    <Camera className="w-4 h-4 text-[#8C1515]" />
+                    <h4 className="font-serif font-bold text-base sm:text-lg text-[#1A1A1A]">
+                      Geotagged Photos
+                    </h4>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    {infrastructureData.map((infra, idx) => (
+                      <div 
+                        key={idx}
+                        className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                      >
+                        <div className="flex items-center space-x-3 min-w-0 pr-2">
+                          <div className="w-8 h-8 rounded-lg bg-[#8C1515]/10 text-[#8C1515] flex items-center justify-center shrink-0 group-hover:bg-[#8C1515] group-hover:text-white transition-colors">
+                            <Building2 className="w-4 h-4" />
+                          </div>
+                          <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                            {infra.title}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => alert(`Downloading Geotagged Document: ${infra.title} (PDF)`)}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 6: PROSPECTUS */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("prospectus") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("prospectus")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("prospectus") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <BookMarked className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Publications Archive
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Prospectus
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    2015 - 2020 Archive
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("prospectus") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("prospectus") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 animate-fade-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    {prospectusData.map((pros, idx) => (
+                      <div 
+                        key={idx}
+                        className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                      >
+                        <div className="flex items-center space-x-3 min-w-0 pr-2">
+                          <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                            {pros.year}
+                          </span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                            {pros.title}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => alert(`Downloading ${pros.title} (PDF)`)}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 7: NSS ACTIVITIES */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("nss") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("nss")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("nss") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <HeartHandshake className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      National Service Scheme
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      NSS Activities
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Extension & Swachh Bharat
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("nss") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("nss") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-8 animate-fade-in">
+                  {/* Extension Activities */}
+                  <div className="space-y-4">
+                    <h4 className="font-serif font-bold text-base sm:text-lg text-[#1A1A1A]">
+                      Extension Activities
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                      {nssActivitiesData.extensionActivities.map((act, idx) => (
+                        <div 
+                          key={idx}
+                          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                        >
+                          <div className="flex items-center space-x-3 min-w-0 pr-2">
+                            <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                              {act.year}
+                            </span>
+                            <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                              {act.title}
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => alert(`Downloading NSS: ${act.title} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Swachh Bharat */}
+                  <div className="pt-6 border-t border-[#E5E0D5] space-y-4">
+                    <h4 className="font-serif font-bold text-base sm:text-lg text-[#1A1A1A]">
+                      Swach Bharath extension activity
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {nssActivitiesData.swachhBharat.map((sb, sIdx) => (
+                        <div 
+                          key={sIdx}
+                          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                        >
+                          <div className="flex items-center space-x-3 min-w-0 pr-3">
+                            <div className="w-9 h-9 rounded-lg bg-[#8C1515]/10 text-[#8C1515] flex items-center justify-center shrink-0 group-hover:bg-[#8C1515] group-hover:text-white transition-colors">
+                              <HeartHandshake className="w-4 h-4" />
+                            </div>
+                            <div className="min-w-0">
+                              <h5 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors truncate">
+                                {sb.title}
+                              </h5>
+                              <span className="text-xs font-mono text-[#777]">
+                                {sb.category}
+                              </span>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => alert(`Downloading ${sb.title} (PDF)`)}
+                            className="inline-flex items-center space-x-1.5 text-xs font-bold text-[#8C1515] bg-[#FAF8F5] hover:bg-[#8C1515] hover:text-white px-3.5 py-2 rounded-lg border border-[#E5E0D5] hover:border-[#8C1515] transition-all cursor-pointer shrink-0"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 8: INTERNSHIP */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("internship") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("internship")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("internship") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Briefcase className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Experiential Learning
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Internship
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    21-22 & 22-23 Batches
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("internship") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("internship") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-6 animate-fade-in">
+                  {internshipData.map((batch, bIdx) => (
+                    <div key={bIdx} className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-mono text-xs font-bold text-[#8C1515] bg-[#8C1515]/5 px-2.5 py-1 rounded border border-[#8C1515]/10">
+                          {batch.label}
+                        </span>
+                        <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                          Academic Year {batch.academicYear}
+                        </h4>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        {batch.items.map((item, iIdx) => (
+                          <div 
+                            key={iIdx}
+                            className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                          >
+                            <div className="flex items-center space-x-3 min-w-0 pr-3">
+                              <div className="w-8 h-8 rounded-lg bg-[#8C1515]/10 text-[#8C1515] flex items-center justify-center shrink-0 group-hover:bg-[#8C1515] group-hover:text-white transition-colors">
+                                <Briefcase className="w-4 h-4" />
+                              </div>
+                              <div className="min-w-0">
+                                <h5 className="font-serif font-bold text-sm text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors truncate">
+                                  {item.title}
+                                </h5>
+                                <p className="text-xs text-[#666] font-mono truncate">
+                                  {item.desc}
+                                </p>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => alert(`Downloading ${batch.label} - ${item.title} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 9: Student Support */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("student-support") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("student-support")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("student-support") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <HandHelping className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Student Welfare & Growth
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Student Support
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Mentoring & Skill Enhancement
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("student-support") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("student-support") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-6 animate-fade-in">
+                  
+                  {/* Capacity Building & Skills Enhancement */}
+                  <div className="space-y-3">
+                    <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                      Capacity Building & Skills Enhancement
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {[
+                        { title: "Capacity building & Skills Enhancement", tag: "General" },
+                        { title: "Capacity building & Skills Enhancement -2021-22", tag: "2021-22" }
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group">
+                          <div className="flex items-center space-x-3 min-w-0 pr-2">
+                            <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                              {item.tag}
+                            </span>
+                            <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                              {item.title}
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => alert(`Downloading ${item.title} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Placement Summary & Mentoring */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Placement Summary
+                      </h4>
+                      <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group">
+                        <div className="flex items-center space-x-3 min-w-0 pr-2">
+                          <Briefcase className="w-4 h-4 text-[#8C1515] shrink-0" />
+                          <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                            Placement Summary
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => alert("Downloading Placement Summary (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Mentoring
+                      </h4>
+                      <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group">
+                        <div className="flex items-center space-x-3 min-w-0 pr-2">
+                          <Users className="w-4 h-4 text-[#8C1515] shrink-0" />
+                          <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                            Mentor-Mentee Report
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => alert("Downloading Mentor-Mentee Report (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Experiential Learning, Student List, Value Added Courses */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                    {/* Experiential Learning */}
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Experiential Learning
+                      </h4>
+                      <div className="space-y-2">
+                        {["Courses", "Certificates"].map((sub, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                            <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                              {sub}
+                            </span>
+                            <button
+                              onClick={() => alert(`Downloading Experiential Learning: ${sub} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Student List */}
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Student List
+                      </h4>
+                      <div className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                        <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                          Student List
+                        </span>
+                        <button
+                          onClick={() => alert("Downloading Student List (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                          <Download className="w-3 h-3" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Value Added Courses */}
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Value Added Courses
+                      </h4>
+                      <div className="space-y-2">
+                        {["Report", "Certificates"].map((vac, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                            <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                              {vac}
+                            </span>
+                            <button
+                              onClick={() => alert(`Downloading Value Added Courses: ${vac} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 10: NIRF */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("nirf") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("nirf")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("nirf") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <TrendingUp className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      National Institutional Ranking
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      NIRF
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    MHRD Engineering Reports
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("nirf") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("nirf") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-6 animate-fade-in">
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] space-y-1">
+                    <h4 className="font-serif font-bold text-sm sm:text-base text-[#1A1A1A] uppercase tracking-wide">
+                      Report of NIRF Data Capturing System: Engineering
+                    </h4>
+                    <p className="text-xs text-[#666] font-mono">
+                      Ministry of Human Resource Development, Government of India, New Delhi
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    {[
+                      { year: "2025", title: "2025 Engineering" },
+                      { year: "2024", title: "2024 Engineering" },
+                      { year: "2022", title: "2022 Engineering" },
+                      { year: "2021", title: "2021 Engineering" },
+                      { year: "2020", title: "2020 Engineering" }
+                    ].map((nirf, idx) => (
+                      <div 
+                        key={idx}
+                        className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 hover:shadow-xs transition-all group"
+                      >
+                        <div className="flex items-center space-x-3 min-w-0 pr-2">
+                          <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                            {nirf.year}
+                          </span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                            {nirf.title}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => alert(`Downloading NIRF ${nirf.title} (PDF)`)}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 11: Best Practices */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("best-practices") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("best-practices")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("best-practices") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Institutional Initiatives
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Best Practices
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    2019 - 2024 Criteria Records
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("best-practices") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("best-practices") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-6 animate-fade-in">
+                  
+                  {/* General Best Practices */}
+                  <div className="space-y-3">
+                    <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                      Institutional Best Practices & Distinctiveness
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {[
+                        "2019-20",
+                        "Institution Distinctiveness",
+                        "2020-21",
+                        "Gender Equity",
+                        "Facilities for Women",
+                        "Constitutional Obligations",
+                        "Annual Gender Sensitization Plan",
+                        "Specific Facilities for Women",
+                        "Best Practice 1 2021-22"
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                          <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                            {item}
+                          </span>
+                          <button
+                            onClick={() => alert(`Downloading Best Practice: ${item} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3 h-3" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 2021-22 */}
+                  <div className="pt-4 border-t border-[#E5E0D5] space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <span className="font-mono text-xs font-bold text-[#8C1515] bg-[#8C1515]/5 px-2.5 py-1 rounded border border-[#8C1515]/10">
+                        2021-22
+                      </span>
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Academic Year 2021-22 Criteria & Reports
+                      </h4>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {[
+                        "7.1.9",
+                        "7.2.1",
+                        "7.1.1a",
+                        "7.1.1 Gender sensitization",
+                        "7.1.1 Specific facilities for women",
+                        "7.1.2 Sensor based energy conservation",
+                        "Code of Conduct committee",
+                        "HKBK Employee Handbook",
+                        "7.2.1 Best Practices",
+                        "7.3.1 Institute Distinctiveness"
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                          <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                            {item}
+                          </span>
+                          <button
+                            onClick={() => alert(`Downloading 2021-22: ${item} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3 h-3" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 2022-23 & 2023-24 */}
+                  <div className="pt-4 border-t border-[#E5E0D5] grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* 2022-23 */}
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-mono text-xs font-bold text-[#8C1515] bg-[#8C1515]/5 px-2.5 py-1 rounded border border-[#8C1515]/10">
+                          2022-23
+                        </span>
+                        <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                          Academic Year 2022-23
+                        </h4>
+                      </div>
+                      <div className="space-y-2">
+                        {[
+                          "7.1.1 Gender sensitization",
+                          "7.1.3 Waste Management",
+                          "7.2.1 Best Practices"
+                        ].map((item, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                            <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                              {item}
+                            </span>
+                            <button
+                              onClick={() => alert(`Downloading 2022-23: ${item} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 2023-24 */}
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-mono text-xs font-bold text-[#8C1515] bg-[#8C1515]/5 px-2.5 py-1 rounded border border-[#8C1515]/10">
+                          2023-24
+                        </span>
+                        <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                          Academic Year 2023-24
+                        </h4>
+                      </div>
+                      <div className="space-y-2">
+                        {[
+                          "7.2.1 Best Practices"
+                        ].map((item, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group">
+                            <span className="text-xs font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515]">
+                              {item}
+                            </span>
+                            <button
+                              onClick={() => alert(`Downloading 2023-24: ${item} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 12: IPR */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("ipr") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("ipr")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("ipr") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Lightbulb className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Intellectual Property Rights
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      IPR
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Patent & Innovation Cell
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("ipr") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("ipr") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 animate-fade-in">
+                  <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                        2020-21
+                      </span>
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        IPR 20-21
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading IPR 20-21 (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 13: Feedback */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("feedback") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("feedback")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("feedback") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <ClipboardList className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Curriculum & Evaluation
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Feedback
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Curriculum Feedback
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("feedback") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("feedback") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-3 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    Curriculum Feedback
+                  </h4>
+                  <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                        2020-21
+                      </span>
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        IPR 20-21
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading Curriculum Feedback: IPR 20-21 (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 14: Accounts */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("accounts") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("accounts")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("accounts") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Wallet className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Financial Statements
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Accounts
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Audit Statement
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("accounts") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("accounts") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-3 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    Audit Statement
+                  </h4>
+                  <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                        2023-24
+                      </span>
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        NAAC-AQAR 2023-24
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading Audit Statement: NAAC-AQAR 2023-24 (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 15: NAAC-AQAR 2023-24 */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("naac-aqar-2023-24") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("naac-aqar-2023-24")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("naac-aqar-2023-24") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Quality Compliance Archive
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      NAAC-AQAR 2023-24
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Criteria 1 to 7 Documentation
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("naac-aqar-2023-24") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("naac-aqar-2023-24") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-6 animate-fade-in">
+                  
+                  {/* Criteria 1 */}
+                  <div className="space-y-3">
+                    <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                      Criteria 1
+                    </h4>
+                    <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                      <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate">
+                        1.4.1 Feedback Report
+                      </span>
+                      <button
+                        onClick={() => alert("Downloading Criteria 1: 1.4.1 Feedback Report (PDF)")}
+                        className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                      >
+                        <Download className="w-3 h-3" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Criteria 2 */}
+                  <div className="pt-4 border-t border-[#E5E0D5] space-y-3">
+                    <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                      Criteria 2
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {[
+                        "2.2 Seat matrix",
+                        "3.2 Number of Sanctioned posts during the year",
+                        "2.6 Annual Report",
+                        "2.7 Satisfaction Survey"
+                      ].map((item, idx) => (
+                        <div key={idx} className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                          <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                            {item}
+                          </span>
+                          <button
+                            onClick={() => alert(`Downloading Criteria 2: ${item} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3 h-3" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Criteria 3 & Criteria 4 */}
+                  <div className="pt-4 border-t border-[#E5E0D5] grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Criteria 3
+                      </h4>
+                      <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                        <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                          Sub criteria 3.1.3 under NAAC Criteria 3
+                        </span>
+                        <button
+                          onClick={() => alert("Downloading Sub criteria 3.1.3 under NAAC Criteria 3 (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Criteria 4
+                      </h4>
+                      <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                        <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                          4.1.3 Link to Geo-Tagged Photos and Master Time Table
+                        </span>
+                        <button
+                          onClick={() => alert("Downloading Criteria 4.1.3 (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Criteria 5 */}
+                  <div className="pt-4 border-t border-[#E5E0D5] space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <span className="font-mono text-xs font-bold text-[#8C1515] bg-[#8C1515]/5 px-2.5 py-1 rounded border border-[#8C1515]/10">
+                        NAAC-AQAR 2023-24 Criteria - 5
+                      </span>
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Criteria 5
+                      </h4>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {[
+                        "5.1.1 Government Scholarship",
+                        "5.1.2 Management Scholarship",
+                        "5.1.4 CAREER GUIDANCE AND COUNSELLING",
+                        "5.1.3 - 1 Soft skill",
+                        "5.1.3 - 2 Language and Communication Skill",
+                        "5.1.3 - 3 Life Skill ( YOGA)",
+                        "5.1.3 - 4 ICT/ Computing Skills",
+                        "5.3.2 Student Representation"
+                      ].map((item, idx) => (
+                        <div key={idx} className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                          <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                            {item}
+                          </span>
+                          <button
+                            onClick={() => alert(`Downloading Criteria 5: ${item} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3 h-3" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Criteria 6 & Criteria 7 */}
+                  <div className="pt-4 border-t border-[#E5E0D5] grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Criteria 6 */}
+                    <div className="space-y-3">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Criteria 6
+                      </h4>
+                      <div className="space-y-2">
+                        {[
+                          "6.2.2. Organogram of the Institution",
+                          "6.2.2. Employee Service Handbook 2023"
+                        ].map((item, idx) => (
+                          <div key={idx} className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                            <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                              {item}
+                            </span>
+                            <button
+                              onClick={() => alert(`Downloading Criteria 6: ${item} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Criteria 7 */}
+                    <div className="space-y-3">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Criteria 7
+                      </h4>
+                      <div className="space-y-2">
+                        {[
+                          "Annual Gender Sensitization Action Plan 2023-24 Criteria 7",
+                          "7.1.1",
+                          "7.1.3"
+                        ].map((item, idx) => (
+                          <div key={idx} className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                            <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                              {item}
+                            </span>
+                            <button
+                              onClick={() => alert(`Downloading Criteria 7: ${item} (PDF)`)}
+                              className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 16: Equal Opportunity Cell (EOC) */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("eoc") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("eoc")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("eoc") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <HeartHandshake className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Statutory Inclusion Committees
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Equal Opportunity Cell (EOC)
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Vision & Inclusivity Cells
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("eoc") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("eoc") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-6 animate-fade-in">
+                  
+                  {/* Vision & Mission */}
+                  <div className="space-y-3">
+                    <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                      Vision & Mission
+                    </h4>
+                    <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                      <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515]">
+                        Vision & Mission
+                      </span>
+                      <button
+                        onClick={() => alert("Downloading EOC: Vision & Mission (PDF)")}
+                        className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                      >
+                        <Download className="w-3 h-3" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Cells */}
+                  <div className="pt-4 border-t border-[#E5E0D5] space-y-3">
+                    <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                      Cells
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {[
+                        "SC/ST Cell",
+                        "OBC Cell",
+                        "Women's Cell",
+                        "Minority Cell",
+                        "Differently abled Cell",
+                        "International students Cell",
+                        "Counselling and Mentoring Cell",
+                        "Gender Sensitization Cell",
+                        "Posh Cell",
+                        "National service scheme",
+                        "Human Studies cell",
+                        "Population Studies Cell",
+                        "Remedial and Coaching Cell",
+                        "Women's study cell"
+                      ].map((cell, idx) => (
+                        <div key={idx} className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                          <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                            {cell}
+                          </span>
+                          <button
+                            onClick={() => alert(`Downloading EOC Cell: ${cell} (PDF)`)}
+                            className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2 py-1 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                          >
+                            <Download className="w-3 h-3" />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 17: Policies */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("policies") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("policies")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("policies") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <ScrollText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Statutory Policies
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Policies
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Certificates & Refund Guidelines
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("policies") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("policies") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {/* Non Retention of Certificates */}
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Non Retention of Certificates
+                      </h4>
+                      <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                        <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                          Non Retention of certificates
+                        </span>
+                        <button
+                          onClick={() => alert("Downloading Non Retention of certificates (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Fees Refund Policy */}
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        Fees Refund Policy
+                      </h4>
+                      <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                        <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                          Fees Refund Policy
+                        </span>
+                        <button
+                          onClick={() => alert("Downloading Fees Refund Policy (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* VTU Fee Refund Policy */}
+                    <div className="space-y-2">
+                      <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                        VTU Fee Refund Policy
+                      </h4>
+                      <div className="p-3.5 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                        <span className="text-xs font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] truncate pr-2">
+                          VTU Refund Policy
+                        </span>
+                        <button
+                          onClick={() => alert("Downloading VTU Refund Policy (PDF)")}
+                          className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-md border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>PDF</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 18: Employee Handbook */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("employee-handbook") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("employee-handbook")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("employee-handbook") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <BookOpen className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Faculty & Staff Guidelines
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Employee Handbook
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Service Rules & Code of Conduct
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("employee-handbook") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("employee-handbook") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-3 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    Employee Handbook
+                  </h4>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <BookMarked className="w-4 h-4 text-[#8C1515] shrink-0" />
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        Employee Handbook
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading Employee Handbook (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 19: College Internal Complaints Committee (CICC) */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("cicc") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("cicc")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("cicc") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Statutory Cell & Women Safety
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      College Internal Complaints Committee(CICC)
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    CICC Composition & Objectives
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("cicc") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("cicc") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    CICC composition and objectives
+                  </h4>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <ShieldCheck className="w-4 h-4 text-[#8C1515] shrink-0" />
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        CICC Composition and Objectives
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading CICC Composition and Objectives (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 20: Anti Ragging Committee */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("anti-ragging") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("anti-ragging")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("anti-ragging") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <ShieldAlert className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Campus Safety & Disciplinary Norms
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Anti Ragging Committee
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Composition & Measures
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("anti-ragging") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("anti-ragging") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    Composition
+                  </h4>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <ShieldAlert className="w-4 h-4 text-[#8C1515] shrink-0" />
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        Composition
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading Anti Ragging Committee Composition (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 21: Grievance Redressal */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("grievance-redressal") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("grievance-redressal")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("grievance-redressal") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Scale className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Student & Staff Welfare
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Grievance redressal
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Composition-24-25
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("grievance-redressal") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("grievance-redressal") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    Composition-24-25
+                  </h4>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <Scale className="w-4 h-4 text-[#8C1515] shrink-0" />
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        Composition-24-25
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading Grievance Redressal Composition-24-25 (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 22: Accessibility Guidelines */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("accessibility-guidelines") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("accessibility-guidelines")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("accessibility-guidelines") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Accessibility className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Divyangjan & Inclusive Campus
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Accessibility Guideliness
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    UGC Norms & Barrier-Free Access
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("accessibility-guidelines") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("accessibility-guidelines") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* UGC Guidelines */}
+                    <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                      <div className="flex items-center space-x-3 min-w-0 pr-2">
+                        <FileText className="w-4 h-4 text-[#8C1515] shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#777] block font-mono">UGC Norms</span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                            UGC Guidelines
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => alert("Downloading UGC Guidelines (PDF)")}
+                        className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+
+                    {/* Barrier Free Environment for Disabled */}
+                    <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                      <div className="flex items-center space-x-3 min-w-0 pr-2">
+                        <Accessibility className="w-4 h-4 text-[#8C1515] shrink-0" />
+                        <div>
+                          <span className="text-xs text-[#777] block font-mono">Disabled Facilities</span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                            Barrier Free Environment for Disabled
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => alert("Downloading Barrier free (PDF)")}
+                        className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 23: Research and Development Cell */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("research-development") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("research-development")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("research-development") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Microscope className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Innovation, Patents & Publications
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Research and Development Cell
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    R&D Committee & Policies
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("research-development") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("research-development") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    R&D commmittee and Policies
+                  </h4>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <Microscope className="w-4 h-4 text-[#8C1515] shrink-0" />
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        R&D Composition and Policies
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading R&D Composition and Policies (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 24: Institutional Development Plan */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("idp") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("idp")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("idp") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Compass className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      Strategic Vision & Roadmap
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      Institutional Development Plan
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    IDP Blueprint
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("idp") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("idp") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <h4 className="font-serif font-bold text-base text-[#1A1A1A]">
+                    IDP
+                  </h4>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between max-w-md">
+                    <div className="flex items-center space-x-3 min-w-0 pr-2">
+                      <Compass className="w-4 h-4 text-[#8C1515] shrink-0" />
+                      <span className="text-sm font-semibold text-[#1A1A1A] truncate group-hover:text-[#8C1515] transition-colors">
+                        IDP
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => alert("Downloading IDP (PDF)")}
+                      className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Accordion 25: NBA - DCS */}
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${openAccordions.includes("nba-dcs") ? "bg-white border-[#8C1515]/30 shadow-sm" : "bg-white border-[#DCD6C8] hover:border-[#8C1515]/40"}`}>
+              <button
+                onClick={() => toggleAccordion("nba-dcs")}
+                className="w-full p-5 sm:p-6 flex items-center justify-between text-left transition-colors cursor-pointer group"
+              >
+                <div className="flex items-center space-x-4 min-w-0 pr-4">
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openAccordions.includes("nba-dcs") ? "bg-[#8C1515] text-white" : "bg-[#8C1515]/10 text-[#8C1515] group-hover:bg-[#8C1515] group-hover:text-white"}`}>
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8C1515] block mb-0.5">
+                      National Board of Accreditation
+                    </span>
+                    <h3 className="font-serif font-bold text-base text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                      NBA - DCS
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 shrink-0">
+                  <span className="hidden sm:inline-block text-xs font-mono text-[#777] bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E5E0D5]">
+                    Data Capturing System (DCS)
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 ${openAccordions.includes("nba-dcs") ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" : "bg-[#FAF8F5] text-[#666]"}`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+
+              {openAccordions.includes("nba-dcs") && (
+                <div className="p-6 sm:p-8 pt-2 border-t border-[#E5E0D5] bg-[#FAF8F5]/40 space-y-4 animate-fade-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* CSE */}
+                    <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                      <div className="flex items-center space-x-3 min-w-0 pr-2">
+                        <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                          CSE
+                        </span>
+                        <div>
+                          <span className="text-xs text-[#777] block font-mono">Computer Science & Engg.</span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                            CSE-DCS
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => alert("Downloading CSE-DCS (PDF)")}
+                        className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+
+                    {/* ME */}
+                    <div className="p-4 rounded-xl bg-white border border-[#E5E0D5] hover:border-[#8C1515]/40 transition-all group flex items-center justify-between">
+                      <div className="flex items-center space-x-3 min-w-0 pr-2">
+                        <span className="font-mono text-[10px] font-bold text-[#8C1515] bg-[#8C1515]/5 px-2 py-0.5 rounded border border-[#8C1515]/10 shrink-0">
+                          ME
+                        </span>
+                        <div>
+                          <span className="text-xs text-[#777] block font-mono">Mechanical Engineering</span>
+                          <span className="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#8C1515] transition-colors">
+                            ME-DCS
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => alert("Downloading ME-DCS (PDF)")}
+                        className="text-xs font-semibold text-[#8C1515] hover:underline flex items-center space-x-1 shrink-0 bg-[#8C1515]/5 px-2.5 py-1.5 rounded-lg border border-[#8C1515]/10 hover:bg-[#8C1515] hover:text-white transition-all cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          </div>
 
         </div>
       </section>

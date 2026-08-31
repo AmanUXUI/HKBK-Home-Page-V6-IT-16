@@ -357,6 +357,7 @@ export default function Header({
   };
 
   const handleLinkClick = (id: string) => {
+    setActiveDropdown(null);
     if (currentPage !== "home" && onNavigate) {
       onNavigate("home");
       setTimeout(() => {
@@ -374,10 +375,6 @@ export default function Header({
       }
     }
     setMobileMenuOpen(false);
-  };
-
-  const handleDropdownToggle = (menu: string) => {
-    setActiveDropdown(activeDropdown === menu ? null : menu);
   };
 
   return (
@@ -516,14 +513,14 @@ export default function Header({
 
       {/* 3. BOTTOM CATEGORIES NAVIGATION TIER & MEGA DROP DOWN MENU */}
       <div 
-        className="hidden lg:block w-full h-[42px] relative bg-[#8C1515] border-t border-white/15 border-b border-black/20 shadow-md"
+        className="hidden lg:block w-full relative bg-[#8C1515] border-t border-white/15 border-b border-black/20 shadow-md"
         onMouseLeave={() => setActiveDropdown(null)}
       >
-        <div className="max-w-7xl mx-auto h-full flex items-center justify-between text-[13.5px] font-bold tracking-wider uppercase font-sans">
+        <div className="max-w-7xl mx-auto h-[42px] flex items-center justify-between text-[13.5px] font-bold tracking-wider uppercase font-sans">
           
           <button 
             onMouseEnter={() => setActiveDropdown("about")}
-            onClick={() => { handleDropdownToggle("about"); handleLinkClick("highlights"); }} 
+            onClick={() => { setActiveDropdown(null); handleLinkClick("highlights"); }} 
             className={`flex-1 h-full text-center border-r border-white/10 hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "about" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>About</span>
@@ -532,7 +529,7 @@ export default function Header({
 
           <button 
             onMouseEnter={() => setActiveDropdown("programs")}
-            onClick={() => { handleDropdownToggle("programs"); handleLinkClick("programmes"); }} 
+            onClick={() => { setActiveDropdown(null); handleLinkClick("programmes"); }} 
             className={`flex-1 h-full text-center border-r border-white/10 hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "programs" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>Programs</span>
@@ -541,7 +538,7 @@ export default function Header({
 
           <button 
             onMouseEnter={() => setActiveDropdown("institution")}
-            onClick={() => { handleDropdownToggle("institution"); handleLinkClick("programmes"); }} 
+            onClick={() => { setActiveDropdown(null); handleLinkClick("programmes"); }} 
             className={`flex-1 h-full text-center border-r border-white/10 hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "institution" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>Academics</span>
@@ -550,7 +547,7 @@ export default function Header({
 
           <button 
             onMouseEnter={() => setActiveDropdown("admissions")}
-            onClick={() => { handleDropdownToggle("admissions"); onOpenApplyModal(); }} 
+            onClick={() => { setActiveDropdown(null); onOpenApplyModal(); }} 
             className={`flex-1 h-full text-center border-r border-white/10 hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "admissions" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>Admissions</span>
@@ -559,7 +556,7 @@ export default function Header({
 
           <button 
             onMouseEnter={() => setActiveDropdown("campus")}
-            onClick={() => { handleDropdownToggle("campus"); handleLinkClick("campus-life"); }} 
+            onClick={() => { setActiveDropdown(null); handleLinkClick("campus-life"); }} 
             className={`flex-1 h-full text-center border-r border-white/10 hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "campus" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>Campus Life</span>
@@ -568,7 +565,7 @@ export default function Header({
 
           <button 
             onMouseEnter={() => setActiveDropdown("placements")}
-            onClick={() => { handleDropdownToggle("placements"); handleLinkClick("scroll-story"); }} 
+            onClick={() => { setActiveDropdown(null); handleLinkClick("scroll-story"); }} 
             className={`flex-1 h-full text-center border-r border-white/10 hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "placements" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>Placements</span>
@@ -577,7 +574,7 @@ export default function Header({
 
           <button 
             onMouseEnter={() => setActiveDropdown("research")}
-            onClick={() => { handleDropdownToggle("research"); handleLinkClick("highlights"); }} 
+            onClick={() => { setActiveDropdown(null); handleLinkClick("highlights"); }} 
             className={`flex-1 h-full text-center hover:bg-black/20 hover:text-[#FFD700] transition-all flex items-center justify-center space-x-1.5 cursor-pointer text-white/90 ${activeDropdown === "research" ? "bg-black/20 text-[#FFD700] shadow-inner" : ""}`}
           >
             <span>Research & Innovation</span>
@@ -588,7 +585,11 @@ export default function Header({
 
         {/* RENDER THE ACTIVE MEGA DROPDOWN */}
         {activeDropdown && dropdownMenus[activeDropdown] && (
-          <div className="absolute top-full left-0 w-full bg-transparent pt-1 z-[100] animate-fade-in">
+          <div 
+            className="absolute top-full left-0 w-full bg-transparent z-[100] animate-fade-in"
+            onMouseEnter={() => setActiveDropdown(activeDropdown)}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
             <div className="max-w-7xl mx-auto bg-white rounded-b-[24px] border-x border-b border-gray-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-8 flex flex-col lg:flex-row gap-8 items-stretch animate-fade-in">
               
               {/* Left Side: Category Columns Grid */}
