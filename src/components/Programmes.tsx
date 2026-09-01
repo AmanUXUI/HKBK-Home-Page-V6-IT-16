@@ -30,6 +30,7 @@ interface Category {
 
 interface ProgrammesProps {
   onOpenApplyModal?: () => void;
+  onNavigate?: (page: any) => void;
 }
 
 interface ProgrammeCardProps {
@@ -40,6 +41,7 @@ interface ProgrammeCardProps {
   range: number[];
   targetScale: number;
   onOpenApplyModal?: () => void;
+  onNavigate?: (page: any) => void;
   getRecruiterLogo: (name: string) => React.ReactNode;
 }
 
@@ -51,6 +53,7 @@ function StackingProgrammeCard({
   range,
   targetScale,
   onOpenApplyModal,
+  onNavigate,
   getRecruiterLogo
 }: ProgrammeCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -58,6 +61,14 @@ function StackingProgrammeCard({
   
   // Staggered sticky top offsets for card stacking effect with ample clearance below header (Header ~155px)
   const stickyTopOffset = 175 + idx * 20;
+
+  const handleCardAction = () => {
+    if (programme.name.includes("Computer Science & Engineering") && onNavigate) {
+      onNavigate("cse-program");
+    } else if (onOpenApplyModal) {
+      onOpenApplyModal();
+    }
+  };
 
   return (
     <div
@@ -172,7 +183,7 @@ function StackingProgrammeCard({
             {/* Red Action Button */}
             <div className="mt-6">
               <button
-                onClick={onOpenApplyModal}
+                onClick={handleCardAction}
                 className="w-full bg-[#8C1515] hover:bg-[#9B2329] text-white font-bold text-[14.5px] sm:text-[15.5px] py-3.5 px-6 rounded-xl shadow-[0_6px_20px_rgba(140, 21, 21,0.3)] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5"
               >
                 <span>View Program</span>
@@ -188,7 +199,7 @@ function StackingProgrammeCard({
   );
 }
 
-export default function Programmes({ onOpenApplyModal }: ProgrammesProps) {
+export default function Programmes({ onOpenApplyModal, onNavigate }: ProgrammesProps) {
   const categories: Category[] = [
     {
       id: "engineering",
@@ -616,6 +627,7 @@ export default function Programmes({ onOpenApplyModal }: ProgrammesProps) {
                       range={range}
                       targetScale={targetScale}
                       onOpenApplyModal={onOpenApplyModal}
+                      onNavigate={onNavigate}
                       getRecruiterLogo={getRecruiterLogo}
                     />
                   );

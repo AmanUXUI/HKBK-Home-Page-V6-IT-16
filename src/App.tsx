@@ -27,6 +27,7 @@ import RecognitionApprovalsPage from "./components/RecognitionApprovalsPage";
 import AwardsRankingsPage from "./components/AwardsRankingsPage";
 import AccreditationPage from "./components/AccreditationPage";
 import IQACPage from "./components/IQACPage";
+import CSEProgramPage from "./components/CSEProgramPage";
 import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
@@ -159,6 +160,12 @@ export default function App() {
           onNavigateOverview={() => handleNavigate("overview")}
           onNavigateAccreditation={() => handleNavigate("accreditation")}
         />
+      ) : currentPage === "cse-program" ? (
+        <CSEProgramPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onOpenLoginModal={() => handleOpenModal("login")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
       ) : (
         <>
           {/* Main Authentic Hero Section (Screenshot Replica) */}
@@ -179,7 +186,10 @@ export default function App() {
           <FindCourse onOpenApplyModal={() => handleOpenModal("apply")} />
 
           {/* Dynamic Sub-sections */}
-          <Programmes onOpenApplyModal={() => handleOpenModal("apply")} />
+          <Programmes 
+            onOpenApplyModal={() => handleOpenModal("apply")} 
+            onNavigate={handleNavigate}
+          />
           <SuccessRoadmap />
           <ScrollStory />
           <ProjectsResearch />
