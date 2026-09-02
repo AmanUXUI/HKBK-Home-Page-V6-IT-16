@@ -65,6 +65,10 @@ function StackingProgrammeCard({
   const handleCardAction = () => {
     if (programme.name.includes("Computer Science & Engineering") && onNavigate) {
       onNavigate("cse-program");
+    } else if (programme.name.includes("Electronics & Communication") && onNavigate) {
+      onNavigate("ece-program");
+    } else if (programme.name.includes("Mechanical Engineering") && onNavigate) {
+      onNavigate("me-program");
     } else if (onOpenApplyModal) {
       onOpenApplyModal();
     }

@@ -28,6 +28,8 @@ import AwardsRankingsPage from "./components/AwardsRankingsPage";
 import AccreditationPage from "./components/AccreditationPage";
 import IQACPage from "./components/IQACPage";
 import CSEProgramPage from "./components/CSEProgramPage";
+import ECEProgramPage from "./components/ECEProgramPage";
+import MEProgramPage from "./components/MEProgramPage";
 import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
@@ -162,6 +164,18 @@ export default function App() {
         />
       ) : currentPage === "cse-program" ? (
         <CSEProgramPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onOpenLoginModal={() => handleOpenModal("login")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : currentPage === "ece-program" ? (
+        <ECEProgramPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onOpenLoginModal={() => handleOpenModal("login")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : currentPage === "me-program" ? (
+        <MEProgramPage
           onOpenApplyModal={() => handleOpenModal("apply")}
           onOpenLoginModal={() => handleOpenModal("login")}
           onNavigateHome={() => handleNavigate("home")}
