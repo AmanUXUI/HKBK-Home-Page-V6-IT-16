@@ -914,20 +914,20 @@ export default function CSEProgramPage({
             <div className="space-y-8">
               
               {/* Quick Summary Card (Matching Reference Top Table) */}
-              <div className="max-w-xl overflow-hidden rounded-xl border border-[#D5D0C5] shadow-xs">
-                <table className="w-full text-left border-collapse">
+              <div className="max-w-2xl overflow-x-auto rounded-xl border border-[#D5D0C5] shadow-xs">
+                <table className="w-full text-left border-collapse min-w-[540px]">
                   <thead>
                     <tr className="bg-[#4A5568] text-white text-xs sm:text-sm uppercase tracking-wider font-bold">
-                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82]">Program Fee</th>
-                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82]">Total 4-Yr Fee</th>
-                      <th className="py-3 px-4 sm:px-6">Program Duration</th>
+                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82] whitespace-nowrap">Program Fee</th>
+                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82] whitespace-nowrap">Total 4-Yr Fee</th>
+                      <th className="py-3 px-4 sm:px-6 whitespace-nowrap">Program Duration</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#E5E0D5] bg-white text-xs sm:text-sm text-[#222]">
                     <tr>
-                      <td className="py-3.5 px-4 sm:px-6 font-medium text-[#444] border-r border-[#E5E0D5]">Annual / Semester Basis</td>
-                      <td className="py-3.5 px-4 sm:px-6 font-bold text-[#8C1515] border-r border-[#E5E0D5]">₹ 10,50,000/- INR</td>
-                      <td className="py-3.5 px-4 sm:px-6 font-semibold text-[#333]">4.0 Years (8 Semesters)</td>
+                      <td className="py-3.5 px-4 sm:px-6 font-medium text-[#444] border-r border-[#E5E0D5] whitespace-nowrap">Annual / Semester Basis</td>
+                      <td className="py-3.5 px-4 sm:px-6 font-bold text-[#8C1515] border-r border-[#E5E0D5] whitespace-nowrap">₹ 10,50,000/- INR</td>
+                      <td className="py-3.5 px-4 sm:px-6 font-semibold text-[#333] whitespace-nowrap">4.0 Years (8 Semesters)</td>
                     </tr>
                   </tbody>
                 </table>
@@ -985,20 +985,20 @@ export default function CSEProgramPage({
             <div className="space-y-8">
               
               {/* Quick Summary Card for International Students */}
-              <div className="max-w-xl overflow-hidden rounded-xl border border-[#D5D0C5] shadow-xs">
-                <table className="w-full text-left border-collapse">
+              <div className="max-w-2xl overflow-x-auto rounded-xl border border-[#D5D0C5] shadow-xs">
+                <table className="w-full text-left border-collapse min-w-[540px]">
                   <thead>
                     <tr className="bg-[#4A5568] text-white text-xs sm:text-sm uppercase tracking-wider font-bold">
-                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82]">Program Fee</th>
-                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82]">Total 4-Yr Fee</th>
-                      <th className="py-3 px-4 sm:px-6">Program Duration</th>
+                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82] whitespace-nowrap">Program Fee</th>
+                      <th className="py-3 px-4 sm:px-6 border-r border-[#5F6D82] whitespace-nowrap">Total 4-Yr Fee</th>
+                      <th className="py-3 px-4 sm:px-6 whitespace-nowrap">Program Duration</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#E5E0D5] bg-white text-xs sm:text-sm text-[#222]">
                     <tr>
-                      <td className="py-3.5 px-4 sm:px-6 font-medium text-[#444] border-r border-[#E5E0D5]">International Tuition</td>
-                      <td className="py-3.5 px-4 sm:px-6 font-bold text-[#8C1515] border-r border-[#E5E0D5]">$ 17,500 USD</td>
-                      <td className="py-3.5 px-4 sm:px-6 font-semibold text-[#333]">4.0 Years (8 Semesters)</td>
+                      <td className="py-3.5 px-4 sm:px-6 font-medium text-[#444] border-r border-[#E5E0D5] whitespace-nowrap">International Tuition</td>
+                      <td className="py-3.5 px-4 sm:px-6 font-bold text-[#8C1515] border-r border-[#E5E0D5] whitespace-nowrap">$ 17,500 USD</td>
+                      <td className="py-3.5 px-4 sm:px-6 font-semibold text-[#333] whitespace-nowrap">4.0 Years (8 Semesters)</td>
                     </tr>
                   </tbody>
                 </table>
