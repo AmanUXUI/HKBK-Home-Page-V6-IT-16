@@ -17,7 +17,11 @@ import {
   Download,
   Handshake,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ChevronDown,
+  HelpCircle,
+  MessageSquare,
+  PhoneCall
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -25,6 +29,76 @@ interface CSEProgramPageProps {
   onOpenApplyModal: () => void;
   onOpenLoginModal: () => void;
   onNavigateHome: () => void;
+}
+
+function AnimatedCounter({
+  target,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  duration = 2000
+}: {
+  target: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = React.useRef<HTMLSpanElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!isVisible) return;
+
+    let startTimestamp: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // Smooth easeOutExpo curve
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const currentVal = easeProgress * target;
+      setCount(currentVal);
+
+      if (progress < 1) {
+        animationFrameId = window.requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrameId = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(animationFrameId);
+  }, [isVisible, target, duration]);
+
+  const formattedValue = decimals > 0 
+    ? count.toFixed(decimals) 
+    : Math.round(count).toString();
+
+  return (
+    <span ref={elementRef} className="tabular-nums font-mono-numeric">
+      {prefix}{formattedValue}{suffix}
+    </span>
+  );
 }
 
 export default function CSEProgramPage({
@@ -47,6 +121,8 @@ export default function CSEProgramPage({
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -999,10 +1075,6 @@ export default function CSEProgramPage({
       <section id="cse-mou" className="w-full bg-[#FAF8F5] border-b border-[#E5E0D5] py-14 sm:py-20 lg:py-24 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 mb-8 sm:mb-12">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 bg-[#8C1515]/10 text-[#8C1515] px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
-              <Handshake className="w-3.5 h-3.5" />
-              <span>Industry Collaborations</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-extrabold text-[#111111] tracking-tight leading-[1.2]">
               Memorandum of Understanding (MOU)
             </h2>
@@ -1207,7 +1279,7 @@ export default function CSEProgramPage({
             {/* Stat 1: 250+ Companies */}
             <div className="flex flex-col">
               <div className="text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight leading-none text-white mb-2.5">
-                250+
+                <AnimatedCounter target={250} suffix="+" duration={2000} />
               </div>
               <div className="w-9 h-[2px] bg-white/70 mb-3" />
               <p className="text-xs sm:text-[13.5px] text-white/90 font-medium leading-snug">
@@ -1218,7 +1290,7 @@ export default function CSEProgramPage({
             {/* Stat 2: 32.4L Highest Salary */}
             <div className="flex flex-col">
               <div className="text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight leading-none text-white mb-2.5">
-                32.4L
+                <AnimatedCounter target={32.4} decimals={1} suffix="L" duration={2200} />
               </div>
               <div className="w-9 h-[2px] bg-white/70 mb-3" />
               <p className="text-xs sm:text-[13.5px] text-white/90 font-medium leading-snug">
@@ -1229,7 +1301,7 @@ export default function CSEProgramPage({
             {/* Stat 3: 93.3% Placed */}
             <div className="flex flex-col">
               <div className="text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight leading-none text-white mb-2.5">
-                93.3%
+                <AnimatedCounter target={93.3} decimals={1} suffix="%" duration={2400} />
               </div>
               <div className="w-9 h-[2px] bg-white/70 mb-3" />
               <p className="text-xs sm:text-[13.5px] text-white/90 font-medium leading-snug">
@@ -1240,7 +1312,7 @@ export default function CSEProgramPage({
             {/* Stat 4: 23+ Startups */}
             <div className="flex flex-col">
               <div className="text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight leading-none text-white mb-2.5">
-                23+
+                <AnimatedCounter target={23} suffix="+" duration={1800} />
               </div>
               <div className="w-9 h-[2px] bg-white/70 mb-3" />
               <p className="text-xs sm:text-[13.5px] text-white/90 font-medium leading-snug">
@@ -1251,7 +1323,7 @@ export default function CSEProgramPage({
             {/* Stat 5: 42K Highest Internship Stipend */}
             <div className="flex flex-col col-span-2 sm:col-span-1">
               <div className="text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight leading-none text-white mb-2.5">
-                42K
+                <AnimatedCounter target={42} suffix="K" duration={2000} />
               </div>
               <div className="w-9 h-[2px] bg-white/70 mb-3" />
               <p className="text-xs sm:text-[13.5px] text-white/90 font-medium leading-snug">
@@ -1263,7 +1335,440 @@ export default function CSEProgramPage({
         </div>
       </section>
 
-      {/* 11. Interactive Video Modal */}
+      {/* 11. Hiring From Us Section (Matching Reference Image Layout) */}
+      <section id="cse-hiring-partners" className="w-full bg-[#FAF8F5] border-b border-[#E5E0D5] py-14 sm:py-20 lg:py-24 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 mb-8 sm:mb-12">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-extrabold text-[#111111] tracking-tight leading-[1.2]">
+              Hiring From Us
+            </h2>
+            <p className="text-[14px] sm:text-[15.5px] text-[#555] leading-[1.7] mt-3">
+              Leading global technology leaders, Fortune 500 enterprises, and premier product companies recruit top engineering talent directly from HKBK Computer Science &amp; Engineering.
+            </p>
+          </div>
+        </div>
+
+        {/* Outer Card Container Matching Reference Layout */}
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="bg-white rounded-3xl sm:rounded-[32px] border border-[#E5E0D5] shadow-sm py-8 sm:py-12 px-2 sm:px-6 relative overflow-hidden">
+            
+            {/* Left & Right Gradient Masks */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-28 z-10 bg-gradient-to-r from-white via-white/80 to-transparent rounded-l-3xl" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-28 z-10 bg-gradient-to-l from-white via-white/80 to-transparent rounded-r-3xl" />
+
+            <div className="space-y-6 sm:space-y-8">
+              {/* ROW 1: Slides Left (Adobe, Deloitte, TCS, Google, Microsoft, Amazon, etc.) */}
+              <div className="animate-marquee-slow flex items-center space-x-12 sm:space-x-20 whitespace-nowrap">
+                {[
+                  { name: "Adobe", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Adobe_Systems_logo_and_wordmark.svg", h: "h-6 sm:h-7" },
+                  { name: "Deloitte", logo: "https://upload.wikimedia.org/wikipedia/commons/5/56/Deloitte.svg", h: "h-5 sm:h-6" },
+                  { name: "TCS", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Google", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg", h: "h-6 sm:h-7" },
+                  { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Oracle", logo: "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg", h: "h-5 sm:h-6" },
+                  { name: "Cisco", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg", h: "h-7 sm:h-8" },
+                  // Duplicated set for infinite loop
+                  { name: "Adobe", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Adobe_Systems_logo_and_wordmark.svg", h: "h-6 sm:h-7" },
+                  { name: "Deloitte", logo: "https://upload.wikimedia.org/wikipedia/commons/5/56/Deloitte.svg", h: "h-5 sm:h-6" },
+                  { name: "TCS", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Google", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg", h: "h-6 sm:h-7" },
+                  { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Oracle", logo: "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg", h: "h-5 sm:h-6" },
+                  { name: "Cisco", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg", h: "h-7 sm:h-8" }
+                ].map((c, idx) => (
+                  <div key={`row1-${c.name}-${idx}`} className="flex items-center justify-center shrink-0 px-2 group cursor-pointer">
+                    <img
+                      src={c.logo}
+                      alt={c.name}
+                      referrerPolicy="no-referrer"
+                      className={`${c.h} w-auto object-contain transition-all duration-300 group-hover:scale-110 filter drop-shadow-2xs`}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        target.style.display = "none";
+                        const parent = target.parentElement;
+                        if (parent && !parent.querySelector(".fallback-label")) {
+                          const span = document.createElement("span");
+                          span.className = "fallback-label text-base font-bold text-[#333]";
+                          span.innerText = c.name;
+                          parent.appendChild(span);
+                        }
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* ROW 2: Slides Right (Cognizant, Wipro, Intel, IBM, Accenture, Infosys, Capgemini, etc.) */}
+              <div className="animate-marquee-right flex items-center space-x-12 sm:space-x-20 whitespace-nowrap">
+                {[
+                  { name: "Cognizant", logo: "https://upload.wikimedia.org/wikipedia/commons/4/43/Cognizant_logo_2022.svg", h: "h-6 sm:h-7" },
+                  { name: "Wipro", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Logo_Primary_RGB_Color_Logo.svg", h: "h-7 sm:h-8" },
+                  { name: "Intel", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Intel_logo_%282020%29.svg", h: "h-6 sm:h-7" },
+                  { name: "IBM", logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg", h: "h-5 sm:h-6" },
+                  { name: "Accenture", logo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg", h: "h-6 sm:h-7" },
+                  { name: "Infosys", logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Capgemini", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Capgemini_201x_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Dell", logo: "https://upload.wikimedia.org/wikipedia/commons/1/18/Dell_logo_2016.svg", h: "h-6 sm:h-7" },
+                  // Duplicated set for infinite loop
+                  { name: "Cognizant", logo: "https://upload.wikimedia.org/wikipedia/commons/4/43/Cognizant_logo_2022.svg", h: "h-6 sm:h-7" },
+                  { name: "Wipro", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Logo_Primary_RGB_Color_Logo.svg", h: "h-7 sm:h-8" },
+                  { name: "Intel", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Intel_logo_%282020%29.svg", h: "h-6 sm:h-7" },
+                  { name: "IBM", logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg", h: "h-5 sm:h-6" },
+                  { name: "Accenture", logo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg", h: "h-6 sm:h-7" },
+                  { name: "Infosys", logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Capgemini", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Capgemini_201x_logo.svg", h: "h-6 sm:h-7" },
+                  { name: "Dell", logo: "https://upload.wikimedia.org/wikipedia/commons/1/18/Dell_logo_2016.svg", h: "h-6 sm:h-7" }
+                ].map((c, idx) => (
+                  <div key={`row2-${c.name}-${idx}`} className="flex items-center justify-center shrink-0 px-2 group cursor-pointer">
+                    <img
+                      src={c.logo}
+                      alt={c.name}
+                      referrerPolicy="no-referrer"
+                      className={`${c.h} w-auto object-contain transition-all duration-300 group-hover:scale-110 filter drop-shadow-2xs`}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        target.style.display = "none";
+                        const parent = target.parentElement;
+                        if (parent && !parent.querySelector(".fallback-label")) {
+                          const span = document.createElement("span");
+                          span.className = "fallback-label text-base font-bold text-[#333]";
+                          span.innerText = c.name;
+                          parent.appendChild(span);
+                        }
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 12. Every Journey Has a Story (Inspiring Stories of Our Students' Journeys) */}
+      <section id="cse-student-stories" className="w-full relative overflow-hidden py-16 sm:py-24 lg:py-28 bg-[#111111]">
+        {/* Campus Background Image with Dark Vignette/Overlay matching reference */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=2000&q=80"
+            alt="HKBK Campus Pillars"
+            className="w-full h-full object-cover object-center opacity-40 filter brightness-[0.75]"
+          />
+          {/* Rich Gradient Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/90" />
+          <div className="absolute inset-0 bg-[#8C1515]/15 mix-blend-multiply" />
+        </div>
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Left Header & Call to Action (Matching Reference Image) */}
+            <div className="lg:col-span-4 flex flex-col items-start">
+              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-black text-white leading-[1.15] tracking-tight mb-8">
+                Inspiring Stories<br />
+                of Our Students’<br />
+                Journeys
+              </h2>
+              
+              <button
+                onClick={onOpenApplyModal}
+                className="inline-flex items-center space-x-2.5 bg-white text-[#111111] hover:bg-[#8C1515] hover:text-white px-7 py-3.5 rounded-sm text-xs sm:text-sm font-extrabold uppercase tracking-widest transition-all duration-300 shadow-lg cursor-pointer group"
+              >
+                <span>VIEW ALL</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* Right Interactive Testimonial Slider (Matching Reference Image) */}
+            <div className="lg:col-span-8 relative">
+              {(() => {
+                const stories = [
+                  {
+                    id: "story-1",
+                    name: "SAMA AMIN MARBHA",
+                    role: "Data Scientist",
+                    company: "Mercedes Benz Research & Development, Bangalore",
+                    quote: "The strong technical foundation I built during my engineering years gave me the confidence to take on challenging roles in the automotive and data science industry. I'm proud to be contributing to innovation at Mercedes Benz R&D."
+                  },
+                  {
+                    id: "story-2",
+                    name: "IBRAHIM BASHA",
+                    role: "CEO",
+                    company: "Imperial EPF Pvt. Ltd., Bangalore",
+                    quote: "My college years shaped not just my technical skills but also my entrepreneurial mindset. Today, as CEO of Imperial EPF Pvt. Ltd., I look back and credit that foundation for helping me build and lead my own company."
+                  },
+                  {
+                    id: "story-3",
+                    name: "NICHOLAS KURIAN",
+                    role: "Senior Engineer Product",
+                    company: "HARMAN, Bangalore",
+                    quote: "The practical exposure and problem-solving skills I gained during my studies have been invaluable in my journey as a Senior Product Engineer at HARMAN. It prepared me well for the real-world challenges of the industry."
+                  },
+                  {
+                    id: "story-4",
+                    name: "SWATHI. VN",
+                    role: "Senior Software Engineer",
+                    company: "PHILIPS, Bangalore",
+                    quote: "I'm grateful for the strong technical grounding and opportunities that helped me grow into my role as a Senior Software Engineer at PHILIPS. It gave me the skills and confidence to excel in a competitive tech environment."
+                  }
+                ];
+
+                const currentStory = stories[currentStoryIndex];
+
+                return (
+                  <div className="relative px-8 sm:px-12 py-4">
+                    {/* Left Chevron Button */}
+                    <button
+                      onClick={() => setCurrentStoryIndex((prev) => (prev === 0 ? stories.length - 1 : prev - 1))}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 text-white/50 hover:text-white hover:scale-110 p-2 transition-all cursor-pointer z-10"
+                      aria-label="Previous story"
+                    >
+                      <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={1.5} />
+                    </button>
+
+                    {/* Right Chevron Button */}
+                    <button
+                      onClick={() => setCurrentStoryIndex((prev) => (prev === stories.length - 1 ? 0 : prev + 1))}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 text-white/50 hover:text-white hover:scale-110 p-2 transition-all cursor-pointer z-10"
+                      aria-label="Next story"
+                    >
+                      <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={1.5} />
+                    </button>
+
+                    {/* Active Story Card with AnimatePresence */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentStory.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="flex flex-col items-center text-center max-w-2xl mx-auto"
+                      >
+                        {/* Quote Text */}
+                        <p className="text-[16px] sm:text-[19px] lg:text-[21px] text-white/95 font-normal leading-[1.65] mb-8 sm:mb-10 text-center tracking-normal font-sans">
+                          &ldquo;{currentStory.quote}&rdquo;
+                        </p>
+
+                        {/* Student/Alumni Name & Placement Designation */}
+                        <div className="flex flex-col items-center text-center">
+                          <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+                            {currentStory.name}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-white/80 font-medium mt-1">
+                            {currentStory.role}, {currentStory.company}
+                          </p>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* Pagination Dots */}
+                    <div className="flex items-center justify-center space-x-2 mt-8">
+                      {stories.map((s, idx) => (
+                        <button
+                          key={s.id}
+                          onClick={() => setCurrentStoryIndex(idx)}
+                          className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                            currentStoryIndex === idx 
+                              ? "w-8 bg-[#8C1515]" 
+                              : "w-2 bg-white/30 hover:bg-white/60"
+                          }`}
+                          aria-label={`Go to slide ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 13. FAQs Section (Computer Science & Engineering) */}
+      <section id="cse-faqs" className="w-full bg-[#FAF8F5] border-b border-[#E5E0D5] py-16 sm:py-24 lg:py-28">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+          
+          {/* Section Header */}
+          <div className="max-w-3xl mb-12 sm:mb-16">
+            <div className="inline-flex items-center space-x-2 bg-[#8C1515]/10 text-[#8C1515] px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3.5">
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span>Frequently Asked Questions</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-extrabold text-[#111111] tracking-tight leading-[1.2] mb-3">
+              1. Computer Science &amp; Engineering (CSE)
+            </h2>
+            <p className="text-[14px] sm:text-[16px] text-[#555] leading-[1.7]">
+              Get detailed, transparent answers to the most common queries regarding our four-year B.E. Computer Science and Engineering programme, curriculum, academic eligibility, and 2026 admissions.
+            </p>
+          </div>
+
+          {/* Grid Layout: Main FAQs Accordion (Left) + Admissions Helpdesk Card (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            {/* Left: Accordion Items (8 Cols) */}
+            <div className="lg:col-span-8 space-y-4">
+              {[
+                {
+                  id: "faq-1",
+                  index: "01",
+                  question: "What is the B.E. Computer Science and Engineering programme at HKBK College of Engineering?",
+                  answer: "The B.E. Computer Science and Engineering programme at HKBK College of Engineering, Bengaluru, is a four-year on-campus engineering programme. It combines core computer science foundations with exposure to emerging technologies and is designed to prepare students for careers across software, data, cloud, AI and other technology domains."
+                },
+                {
+                  id: "faq-2",
+                  index: "02",
+                  question: "What will I study in Computer Science and Engineering at HKBK CE?",
+                  answer: "CSE students at HKBK CE study core areas such as programming, data structures, algorithms, operating systems, databases and computer systems. The programme also offers extra electives in areas including AI & Machine Learning, Data Analytics, Cloud Computing, Mobile Computing, and Game Design & AR."
+                },
+                {
+                  id: "faq-3",
+                  index: "03",
+                  question: "What is the eligibility for CSE admission at HKBK College of Engineering?",
+                  answer: "Candidates must have passed 10+2, Second PUC or an equivalent qualification with English and a minimum aggregate of 45% in Physics and Mathematics along with Chemistry, Biotechnology, Biology, Electronics or Computer Science. For eligible Karnataka SC/ST and specified category candidates, the minimum is 40%. Admission is processed through JEE, KCET or another recognised engineering entrance examination."
+                },
+                {
+                  id: "faq-4",
+                  index: "04",
+                  question: "What career opportunities are available after CSE at HKBK CE?",
+                  answer: "CSE graduates can pursue careers such as Software Engineer, Full Stack Developer, Data Scientist, AI/ML Engineer, Cloud or DevOps Engineer, Cybersecurity Analyst, Mobile or Web Developer, Business Analyst and other technology roles. HKBK CE also identifies blockchain, IoT, research and academic pathways among the programme's career opportunities."
+                },
+                {
+                  id: "faq-5",
+                  index: "05",
+                  question: "Does HKBK CE provide practical and industry-oriented learning for CSE students?",
+                  answer: "Yes. HKBK CE describes its CSE programme as combining advanced core computing courses with emerging technologies such as Artificial Intelligence, Virtual Reality and Machine Learning. The college also highlights a project-based approach intended to help students build portfolios that demonstrate their technical work to potential employers."
+                },
+                {
+                  id: "faq-6",
+                  index: "06",
+                  question: "How can I apply for CSE admission at HKBK College of Engineering for 2026?",
+                  answer: "Students seeking CSE admission at HKBK College of Engineering can apply through the college's 2026 admission process. Candidates should meet the prescribed academic eligibility and applicable entrance-exam requirements before completing the application process."
+                }
+              ].map((faq, idx) => {
+                const isOpen = openFaqIndex === idx;
+                return (
+                  <div
+                    key={faq.id}
+                    className={`rounded-2xl border transition-all duration-300 overflow-hidden bg-white ${
+                      isOpen
+                        ? "border-[#8C1515] shadow-md ring-1 ring-[#8C1515]/10"
+                        : "border-[#E5E0D5] hover:border-[#8C1515]/40 shadow-xs"
+                    }`}
+                  >
+                    <button
+                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                      className="w-full py-5 px-5 sm:px-6 flex items-start justify-between text-left cursor-pointer group gap-4"
+                      aria-expanded={isOpen}
+                    >
+                      <div className="flex items-start space-x-3.5 sm:space-x-4">
+                        <span className={`text-xs font-mono font-bold tracking-wider px-2.5 py-1 rounded-md shrink-0 mt-0.5 transition-colors ${
+                          isOpen 
+                            ? "bg-[#8C1515] text-white" 
+                            : "bg-[#FAF8F5] text-[#8C1515] border border-[#E5E0D5]"
+                        }`}>
+                          {faq.index}
+                        </span>
+                        <h3 className={`text-sm sm:text-base font-bold transition-colors leading-snug ${
+                          isOpen ? "text-[#8C1515]" : "text-[#111] group-hover:text-[#8C1515]"
+                        }`}>
+                          {faq.question}
+                        </h3>
+                      </div>
+                      
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                        isOpen 
+                          ? "bg-[#8C1515]/10 text-[#8C1515] rotate-180" 
+                          : "bg-[#FAF8F5] text-[#666] group-hover:bg-[#8C1515]/10 group-hover:text-[#8C1515]"
+                      }`}>
+                        <ChevronDown className="w-4 h-4" />
+                      </div>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease: "easeInOut" }}
+                        >
+                          <div className="px-5 sm:px-6 pb-6 pt-1 text-[13.5px] sm:text-[15px] text-[#444] leading-[1.75] border-t border-[#FAF8F5] ml-0 sm:ml-12">
+                            <p className="bg-[#FAF8F5]/80 p-4 rounded-xl border border-[#E5E0D5]/60 text-[#333]">
+                              {faq.answer}
+                            </p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Right: Quick Helpdesk & Admissions Assistance (4 Cols) */}
+            <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
+              
+              {/* Assistance Card */}
+              <div className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-7 shadow-xs">
+                <div className="w-12 h-12 rounded-xl bg-[#8C1515]/10 flex items-center justify-center text-[#8C1515] mb-4">
+                  <MessageSquare className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-[#111] mb-2">
+                  Have More Questions?
+                </h3>
+                <p className="text-xs sm:text-[13.5px] text-[#666] leading-relaxed mb-6">
+                  Speak directly with our academic counselors regarding branch change options, management quota, lateral entry, fee structures, or hostel facilities.
+                </p>
+
+                <div className="space-y-3">
+                  <button
+                    onClick={onOpenApplyModal}
+                    className="w-full bg-[#8C1515] hover:bg-[#9B2329] text-white text-xs sm:text-sm font-bold py-3.5 px-4 rounded-xl transition-all shadow-sm flex items-center justify-center space-x-2 cursor-pointer"
+                  >
+                    <span>Apply for CSE 2026 Batch</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+
+                  <a
+                    href="tel:+919035039000"
+                    className="w-full bg-[#FAF8F5] hover:bg-[#F2ECE4] border border-[#E5E0D5] text-[#111] text-xs sm:text-sm font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                  >
+                    <PhoneCall className="w-4 h-4 text-[#8C1515]" />
+                    <span>Call Admissions: +91 90350 39000</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Fast Facts Card */}
+              <div className="bg-gradient-to-br from-[#111] to-[#222] text-white rounded-2xl p-6 shadow-sm border border-white/10">
+                <span className="text-[10.5px] font-mono uppercase tracking-widest text-[#E5E0D5]/70 block mb-1">
+                  Admissions 2026 Status
+                </span>
+                <h4 className="text-base font-bold text-white mb-2">
+                  Applications Now Open
+                </h4>
+                <p className="text-xs text-white/70 leading-relaxed mb-4">
+                  KCET, COMEDK &amp; Direct Quota admissions are actively processed on a merit basis.
+                </p>
+                <div className="flex items-center space-x-2 text-xs font-semibold text-white/90">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Direct Counseling Active Today</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 14. Interactive Video Modal */}
       <AnimatePresence>
         {isVideoModalOpen && (
           <motion.div
