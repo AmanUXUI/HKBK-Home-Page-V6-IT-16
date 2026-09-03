@@ -181,19 +181,17 @@ export default function MEProgramPage({
                 <span className="text-[#111] font-bold">Engineering</span>
               </h1>
 
-              {/* "In Association with TVS" Badge */}
-              <div className="inline-flex items-center gap-2.5 bg-[#1B2332] text-white pl-3.5 pr-2 py-1.5 rounded-xl shadow-sm border border-slate-700/50 mb-4 w-fit">
-                <span className="text-xs sm:text-[13px] font-medium text-slate-300 tracking-wide">
+              {/* "In Association with TVS" (Clean inline presentation without blue box container) */}
+              <div className="flex items-center gap-3 sm:gap-4 mb-5">
+                <span className="text-xs sm:text-sm font-semibold text-[#444] tracking-tight">
                   In Association with
                 </span>
-                <div className="flex items-center bg-white px-2 py-1 rounded-lg">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE0_c5NKUJLYB1YL_kbUFiPXPRMspJAH1bmXYP85f4Cw&s=10"
-                    alt="TVS Motor Logo"
-                    className="h-5 sm:h-5.5 w-auto object-contain"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
+                <img
+                  src="/tvs-motor-logo.svg"
+                  alt="TVS Motor Logo"
+                  className="h-8 sm:h-10 w-auto object-contain"
+                  referrerPolicy="no-referrer"
+                />
               </div>
 
               {/* Paragraph */}
@@ -1131,7 +1129,7 @@ export default function MEProgramPage({
               {
                 id: "mou-1",
                 name: "TVS Motor Company",
-                logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/TVS_Motor_Company_Logo.svg"
+                logo: "/tvs-motor-logo.svg"
               },
               {
                 id: "mou-2",
@@ -1167,7 +1165,7 @@ export default function MEProgramPage({
               {
                 id: "mou-1-dup",
                 name: "TVS Motor Company",
-                logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/TVS_Motor_Company_Logo.svg"
+                logo: "/tvs-motor-logo.svg"
               },
               {
                 id: "mou-2-dup",
@@ -1383,7 +1381,7 @@ export default function MEProgramPage({
               {/* ROW 1: Slides Left */}
               <div className="animate-marquee-slow flex items-center space-x-12 sm:space-x-20 whitespace-nowrap">
                 {[
-                  { name: "TVS Motor", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/TVS_Motor_Company_Logo.svg", h: "h-6 sm:h-7" },
+                  { name: "TVS Motor", logo: "/tvs-motor-logo.svg", h: "h-6 sm:h-7" },
                   { name: "Bosch", logo: "https://upload.wikimedia.org/wikipedia/commons/1/16/Bosch-Logo.svg", h: "h-5 sm:h-6" },
                   { name: "Toyota", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%282020%29.svg", h: "h-6 sm:h-7" },
                   { name: "Tata Motors", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Tata_logo.svg", h: "h-6 sm:h-7" },
@@ -1392,7 +1390,7 @@ export default function MEProgramPage({
                   { name: "L&T", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e5/L%26T.png", h: "h-6 sm:h-7" },
                   { name: "Volvo", logo: "https://upload.wikimedia.org/wikipedia/commons/2/29/Volvo-Iron-Mark-Black.svg", h: "h-6 sm:h-7" },
                   // Duplicated set for infinite loop
-                  { name: "TVS Motor", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/TVS_Motor_Company_Logo.svg", h: "h-6 sm:h-7" },
+                  { name: "TVS Motor", logo: "/tvs-motor-logo.svg", h: "h-6 sm:h-7" },
                   { name: "Bosch", logo: "https://upload.wikimedia.org/wikipedia/commons/1/16/Bosch-Logo.svg", h: "h-5 sm:h-6" },
                   { name: "Toyota", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%282020%29.svg", h: "h-6 sm:h-7" },
                   { name: "Tata Motors", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Tata_logo.svg", h: "h-6 sm:h-7" },
