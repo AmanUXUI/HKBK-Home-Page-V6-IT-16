@@ -16,7 +16,7 @@ import {
   ArrowRight
 } from "lucide-react";
 
-export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals" | "awards-rankings" | "accreditation" | "iqac" | "cse-program" | "ece-program" | "me-program";
+export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals" | "awards-rankings" | "accreditation" | "iqac" | "cse-program" | "ece-program" | "me-program" | "ise-program" | "aiml-program";
 
 interface HeaderProps {
   activeTab: string;
@@ -106,8 +106,8 @@ export default function Header({
           heading: "Engineering & Technology",
           options: [
             { label: "Computer Science & Engineering", targetPage: "cse-program" },
-            { label: "Artificial Intelligence & Machine Learning", targetId: "programmes" },
-            { label: "Information Science & Engineering", targetId: "programmes" },
+            { label: "Artificial Intelligence & Machine Learning", targetPage: "aiml-program" },
+            { label: "Information Science & Engineering", targetPage: "ise-program" },
             { label: "Electronics & Communication Engineering", targetPage: "ece-program" },
             { label: "Mechanical Engineering", targetPage: "me-program" },
             { label: "Basic Sciences", targetId: "programmes" },

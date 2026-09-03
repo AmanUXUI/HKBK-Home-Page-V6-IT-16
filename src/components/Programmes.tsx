@@ -69,6 +69,10 @@ function StackingProgrammeCard({
       onNavigate("ece-program");
     } else if (programme.name.includes("Mechanical Engineering") && onNavigate) {
       onNavigate("me-program");
+    } else if (programme.name.includes("Information Science") && onNavigate) {
+      onNavigate("ise-program");
+    } else if ((programme.name.includes("Artificial Intelligence") || programme.name.includes("AI & ML") || programme.name.includes("AI&ML")) && onNavigate) {
+      onNavigate("aiml-program");
     } else if (onOpenApplyModal) {
       onOpenApplyModal();
     }

@@ -30,6 +30,8 @@ import IQACPage from "./components/IQACPage";
 import CSEProgramPage from "./components/CSEProgramPage";
 import ECEProgramPage from "./components/ECEProgramPage";
 import MEProgramPage from "./components/MEProgramPage";
+import ISEProgramPage from "./components/ISEProgramPage";
+import AIMLProgramPage from "./components/AIMLProgramPage";
 import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
@@ -176,6 +178,18 @@ export default function App() {
         />
       ) : currentPage === "me-program" ? (
         <MEProgramPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onOpenLoginModal={() => handleOpenModal("login")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : currentPage === "ise-program" ? (
+        <ISEProgramPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
+          onOpenLoginModal={() => handleOpenModal("login")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : currentPage === "aiml-program" ? (
+        <AIMLProgramPage
           onOpenApplyModal={() => handleOpenModal("apply")}
           onOpenLoginModal={() => handleOpenModal("login")}
           onNavigateHome={() => handleNavigate("home")}
