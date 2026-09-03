@@ -16,7 +16,7 @@ import {
   ArrowRight
 } from "lucide-react";
 
-export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals" | "awards-rankings" | "accreditation" | "iqac" | "cse-program" | "ece-program" | "me-program" | "ise-program" | "aiml-program";
+export type PageType = "home" | "overview" | "vision-mission" | "leadership" | "recognition-approvals" | "awards-rankings" | "accreditation" | "iqac" | "cse-program" | "ece-program" | "me-program" | "ise-program" | "aiml-program" | "research-programs";
 
 interface HeaderProps {
   activeTab: string;
@@ -53,13 +53,16 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  type DropdownCategory = {
+    heading: string;
+    options: { label: string; targetId?: string; targetPage?: PageType; isAction?: boolean }[];
+  };
+
   const dropdownMenus: Record<string, {
     id: string;
     title: string;
-    categories: {
-      heading: string;
-      options: { label: string; targetId?: string; targetPage?: PageType; isAction?: boolean }[];
-    }[];
+    categories: DropdownCategory[];
+    columns?: DropdownCategory[][];
     featuredImage?: string;
     featuredTitle?: string;
   }> = {
@@ -121,6 +124,12 @@ export default function Header({
           ]
         },
         {
+          heading: "Research Programs",
+          options: [
+            { label: "Ph.D. In CS, EC, ME, CV, Phy, Che, Mat, MBA", targetPage: "research-programs" },
+          ]
+        },
+        {
           heading: "Computing & Emerging Tech",
           options: [
             { label: "BCA (General)", targetId: "programmes" },
@@ -149,14 +158,81 @@ export default function Header({
           ]
         },
         {
-          heading: "Health & Pre-University & Ph.D",
+          heading: "Health & Pre-University",
           options: [
             { label: "Physiotherapy (BPT)", targetId: "programmes" },
             { label: "Allied Health Sciences (MLT, MIT)", targetId: "programmes" },
             { label: "Pre-University (PUC - PCMB, PCMC, EBAC)", targetId: "programmes" },
-            { label: "Doctor of Philosophy (Ph.D)", targetId: "programmes" },
           ]
         }
+      ],
+      columns: [
+        [
+          {
+            heading: "Engineering & Technology",
+            options: [
+              { label: "Computer Science & Engineering", targetPage: "cse-program" },
+              { label: "Artificial Intelligence & Machine Learning", targetPage: "aiml-program" },
+              { label: "Information Science & Engineering", targetPage: "ise-program" },
+              { label: "Electronics & Communication Engineering", targetPage: "ece-program" },
+              { label: "Mechanical Engineering", targetPage: "me-program" },
+              { label: "Basic Sciences", targetId: "programmes" },
+            ]
+          },
+          {
+            heading: "Management & Business",
+            options: [
+              { label: "BBA (General)", targetId: "programmes" },
+              { label: "BBA – Aviation Management", targetId: "programmes" },
+              { label: "BBA + Logistics & Supply Chain Management", targetId: "programmes" },
+              { label: "BBA + Business Analytics & Digital Marketing", targetId: "programmes" },
+              { label: "MBA (Master of Business Administration)", targetId: "programmes" },
+            ]
+          }
+        ],
+        [
+          {
+            heading: "Engineering (Working Professionals)",
+            options: [
+              { label: "Computer Science & Engineering", targetPage: "cse-program" },
+              { label: "Electronics & Communication Engineering", targetPage: "ece-program" },
+            ]
+          },
+          {
+            heading: "Research Programs",
+            options: [
+              { label: "Ph.D. In CS, EC, ME, CV, Phy, Che, Mat, MBA", targetPage: "research-programs" },
+            ]
+          },
+          {
+            heading: "Commerce & Finance",
+            options: [
+              { label: "B.Com (General)", targetId: "programmes" },
+              { label: "B.Com + CA Foundation", targetId: "programmes" },
+              { label: "B.Com + ACCA (UK)", targetId: "programmes" },
+            ]
+          }
+        ],
+        [
+          {
+            heading: "Computing & Emerging Tech",
+            options: [
+              { label: "BCA (General)", targetId: "programmes" },
+              { label: "BCA + Cybersecurity, Ethical Hacking & Forensics", targetId: "programmes" },
+              { label: "BCA + AI & ML, Cloud Computing & DevOps", targetId: "programmes" },
+              { label: "BCA + Data Science & Big Data Analytics", targetId: "programmes" },
+              { label: "BCA + AI Robotics & IoT", targetId: "programmes" },
+            ]
+          },
+          {
+            heading: "Health & Pre-University",
+            options: [
+              { label: "Physiotherapy (BPT)", targetId: "programmes" },
+              { label: "Allied Health Sciences (MLT, MIT)", targetId: "programmes" },
+              { label: "Pre-University (PUC - PCMB, PCMC, EBAC)", targetId: "programmes" },
+            ]
+          }
+        ]
       ],
       featuredImage: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=600",
       featuredTitle: "Explore Future-Ready Curricula"
@@ -325,6 +401,7 @@ export default function Header({
         {
           heading: "Research",
           options: [
+            { label: "Research Programs", targetPage: "research-programs" },
             { label: "Research Overview", targetId: "why-hkbk" },
             { label: "Centers of Excellence", targetId: "why-hkbk" },
             { label: "Faculty Research", targetId: "why-hkbk" },
@@ -593,43 +670,86 @@ export default function Header({
             <div className="max-w-7xl mx-auto bg-white rounded-b-[24px] border-x border-b border-gray-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-8 flex flex-col lg:flex-row gap-8 items-stretch animate-fade-in">
               
               {/* Left Side: Category Columns Grid */}
-              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                {dropdownMenus[activeDropdown].categories.map((cat, catIdx) => (
-                  <div key={catIdx} className="flex flex-col space-y-3">
-                    {/* Category Header */}
-                    <div className="flex items-center space-x-2 pb-2 border-b border-gray-100">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#8C1515]" />
-                      <h4 className="text-[12px] font-extrabold tracking-wider text-[#8C1515] uppercase font-sans">
-                        {cat.heading}
-                      </h4>
-                    </div>
+              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
+                {dropdownMenus[activeDropdown].columns ? (
+                  dropdownMenus[activeDropdown].columns!.map((colCategories, colIdx) => (
+                    <div key={colIdx} className="flex flex-col space-y-6">
+                      {colCategories.map((cat, catIdx) => (
+                        <div key={catIdx} className="flex flex-col space-y-3">
+                          {/* Category Header */}
+                          <div className="flex items-center space-x-2 pb-2 border-b border-gray-100">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#8C1515]" />
+                            <h4 className="text-[12px] font-extrabold tracking-wider text-[#8C1515] uppercase font-sans">
+                              {cat.heading}
+                            </h4>
+                          </div>
 
-                    {/* Category Options List */}
-                    <div className="flex flex-col space-y-1.5">
-                      {cat.options.map((opt, optIdx) => (
-                        <div
-                          key={optIdx}
-                          onClick={() => {
-                            if (opt.targetPage && onNavigate) {
-                              onNavigate(opt.targetPage);
-                            } else if (opt.isAction) {
-                              onOpenApplyModal();
-                            } else if (opt.targetId) {
-                              handleLinkClick(opt.targetId);
-                            }
-                            setActiveDropdown(null);
-                          }}
-                          className="group flex items-center justify-between py-1.5 px-2 rounded-lg hover:bg-[#FBF4D7]/60 transition-all duration-200 cursor-pointer"
-                        >
-                          <span className="text-[13px] font-medium text-[#8C1515]/80 group-hover:text-[#8C1515] group-hover:translate-x-1 transition-all duration-200 font-sans">
-                            {opt.label}
-                          </span>
-                          <ArrowRight className="w-3 h-3 text-[#8C1515] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
+                          {/* Category Options List */}
+                          <div className="flex flex-col space-y-1.5">
+                            {cat.options.map((opt, optIdx) => (
+                              <div
+                                key={optIdx}
+                                onClick={() => {
+                                  if (opt.targetPage && onNavigate) {
+                                    onNavigate(opt.targetPage);
+                                  } else if (opt.isAction) {
+                                    onOpenApplyModal();
+                                  } else if (opt.targetId) {
+                                    handleLinkClick(opt.targetId);
+                                  }
+                                  setActiveDropdown(null);
+                                }}
+                                className="group flex items-center justify-between py-1.5 px-2 rounded-lg hover:bg-[#FBF4D7]/60 transition-all duration-200 cursor-pointer"
+                              >
+                                <span className="text-[13px] font-medium text-[#8C1515]/80 group-hover:text-[#8C1515] group-hover:translate-x-1 transition-all duration-200 font-sans">
+                                  {opt.label}
+                                </span>
+                                <ArrowRight className="w-3 h-3 text-[#8C1515] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       ))}
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  dropdownMenus[activeDropdown].categories.map((cat, catIdx) => (
+                    <div key={catIdx} className="flex flex-col space-y-3">
+                      {/* Category Header */}
+                      <div className="flex items-center space-x-2 pb-2 border-b border-gray-100">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#8C1515]" />
+                        <h4 className="text-[12px] font-extrabold tracking-wider text-[#8C1515] uppercase font-sans">
+                          {cat.heading}
+                        </h4>
+                      </div>
+
+                      {/* Category Options List */}
+                      <div className="flex flex-col space-y-1.5">
+                        {cat.options.map((opt, optIdx) => (
+                          <div
+                            key={optIdx}
+                            onClick={() => {
+                              if (opt.targetPage && onNavigate) {
+                                onNavigate(opt.targetPage);
+                              } else if (opt.isAction) {
+                                onOpenApplyModal();
+                              } else if (opt.targetId) {
+                                handleLinkClick(opt.targetId);
+                              }
+                              setActiveDropdown(null);
+                            }}
+                            className="group flex items-center justify-between py-1.5 px-2 rounded-lg hover:bg-[#FBF4D7]/60 transition-all duration-200 cursor-pointer"
+                          >
+                            <span className="text-[13px] font-medium text-[#8C1515]/80 group-hover:text-[#8C1515] group-hover:translate-x-1 transition-all duration-200 font-sans">
+                              {opt.label}
+                            </span>
+                            <ArrowRight className="w-3 h-3 text-[#8C1515] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
 
               {/* Right Side: Featured Banner Card (Matching Chandigarh University style highlight) */}

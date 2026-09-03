@@ -32,6 +32,7 @@ import ECEProgramPage from "./components/ECEProgramPage";
 import MEProgramPage from "./components/MEProgramPage";
 import ISEProgramPage from "./components/ISEProgramPage";
 import AIMLProgramPage from "./components/AIMLProgramPage";
+import ResearchProgramsPage from "./components/ResearchProgramsPage";
 import { type PageType } from "./components/Header";
 import { AnimatePresence } from "motion/react";
 
@@ -192,6 +193,11 @@ export default function App() {
         <AIMLProgramPage
           onOpenApplyModal={() => handleOpenModal("apply")}
           onOpenLoginModal={() => handleOpenModal("login")}
+          onNavigateHome={() => handleNavigate("home")}
+        />
+      ) : currentPage === "research-programs" ? (
+        <ResearchProgramsPage
+          onOpenApplyModal={() => handleOpenModal("apply")}
           onNavigateHome={() => handleNavigate("home")}
         />
       ) : (

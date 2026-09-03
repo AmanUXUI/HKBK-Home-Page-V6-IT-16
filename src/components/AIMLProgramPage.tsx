@@ -19,7 +19,15 @@ import {
   FileText,
   Download,
   CheckCircle2,
-  Brain
+  Brain,
+  Award,
+  BookOpen,
+  Users,
+  ShieldCheck,
+  Microscope,
+  Lightbulb,
+  Compass,
+  Presentation
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -32,7 +40,8 @@ import {
   aimlWhoIsItForData,
   aimlStories,
   aimlFaqs,
-  aimlCurriculumModules
+  aimlCurriculumModules,
+  aimlDepartmentNutshellData
 } from "../data/aimlData";
 
 interface AIMLProgramPageProps {
@@ -113,6 +122,37 @@ export default function AIMLProgramPage({
   const [isCurriculumModalOpen, setIsCurriculumModalOpen] = useState(false);
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [activeDeptTab, setActiveDeptTab] = useState<string>("achievements");
+
+  // Icon selector helper for Know Your Department section
+  const getDeptIcon = (id: string) => {
+    switch (id) {
+      case "achievements":
+        return <Award className="w-4 h-4 text-[#8C1515]" />;
+      case "patents":
+        return <Lightbulb className="w-4 h-4 text-[#8C1515]" />;
+      case "research":
+        return <Microscope className="w-4 h-4 text-[#8C1515]" />;
+      case "expert-sessions":
+        return <Presentation className="w-4 h-4 text-[#8C1515]" />;
+      case "activities":
+        return <Sparkles className="w-4 h-4 text-[#8C1515]" />;
+      case "labs":
+        return <Cpu className="w-4 h-4 text-[#8C1515]" />;
+      case "mentoring-system":
+        return <Users className="w-4 h-4 text-[#8C1515]" />;
+      case "course-curriculum":
+        return <BookOpen className="w-4 h-4 text-[#8C1515]" />;
+      case "peo-so-po-pso":
+        return <Compass className="w-4 h-4 text-[#8C1515]" />;
+      case "standards":
+        return <ShieldCheck className="w-4 h-4 text-[#8C1515]" />;
+      case "alumni":
+        return <GraduationCap className="w-4 h-4 text-[#8C1515]" />;
+      default:
+        return <Brain className="w-4 h-4 text-[#8C1515]" />;
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -1170,7 +1210,185 @@ export default function AIMLProgramPage({
         </div>
       </section>
 
-      {/* 10. Placement Stats Section */}
+      {/* 10. Know Your Department (Your Department in a Nutshell) Section */}
+      <section id="aiml-know-your-department" className="w-full bg-[#FAF8F5] border-b border-[#E5E0D5] py-14 sm:py-20 lg:py-24">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+          
+          {/* Section Header */}
+          <div className="mb-10 sm:mb-14">
+            <div className="flex items-center space-x-2 text-xs sm:text-[13px] font-mono font-bold uppercase tracking-widest text-[#8C1515] mb-2.5">
+              <span className="w-2 h-2 rounded-full bg-[#8C1515]" />
+              <span>ACADEMIC, RESEARCH &amp; INNOVATION PILLARS</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-black text-[#111111] uppercase tracking-tight leading-[1.15]">
+              KNOW YOUR DEPARTMENT
+            </h2>
+          </div>
+
+          {/* Main Grid: Left Column matching reference image + Right Interactive Content Card */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            
+            {/* Left Column: Exact Match to Reference Image */}
+            <div className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-24">
+              <div className="border-l-[3px] border-[#8C1515] pl-6 sm:pl-7 py-1">
+                <h3 className="text-2xl sm:text-[28px] lg:text-[32px] font-extrabold text-[#111111] tracking-tight leading-[1.16] mb-6 sm:mb-8">
+                  Your Department<br />in a Nutshell
+                </h3>
+
+                <nav className="flex flex-col space-y-3 sm:space-y-3.5">
+                  {aimlDepartmentNutshellData.map((item) => {
+                    const isActive = activeDeptTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => setActiveDeptTab(item.id)}
+                        className={`text-left text-[16px] sm:text-[17px] tracking-tight transition-all duration-200 cursor-pointer block w-fit ${
+                          isActive
+                            ? "text-[#8C1515] font-bold underline underline-offset-4 decoration-[2.5px] decoration-[#8C1515]"
+                            : "text-[#111111] font-medium hover:text-[#8C1515] underline underline-offset-4 decoration-1 decoration-[#111111] hover:decoration-[#8C1515]"
+                        }`}
+                      >
+                        {item.title}
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+            </div>
+
+            {/* Right Column: Detailed Topic Card for Selected Department Attribute */}
+            <div className="lg:col-span-8 xl:col-span-8">
+              {(() => {
+                const currentItem =
+                  aimlDepartmentNutshellData.find((item) => item.id === activeDeptTab) ||
+                  aimlDepartmentNutshellData[0];
+
+                return (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentItem.id}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -12 }}
+                      transition={{ duration: 0.22 }}
+                      className="bg-white rounded-2xl sm:rounded-3xl border border-[#E5E0D5] p-6 sm:p-9 shadow-sm"
+                    >
+                      {/* Badge & Top Meta */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div className="inline-flex items-center space-x-2 bg-[#8C1515]/10 text-[#8C1515] text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
+                          {getDeptIcon(currentItem.id)}
+                          <span>{currentItem.badge}</span>
+                        </div>
+                        <span className="text-[11px] sm:text-xs font-mono font-semibold text-[#888888]">
+                          HKBK CE • DEPT OF AI &amp; ML
+                        </span>
+                      </div>
+
+                      {/* Main Title & Tagline */}
+                      <h3 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight leading-tight">
+                        {currentItem.title}
+                      </h3>
+                      <p className="text-sm sm:text-base font-semibold text-[#8C1515] mt-1.5">
+                        {currentItem.tagline}
+                      </p>
+
+                      {/* Overview Paragraph */}
+                      <p className="text-[14.5px] sm:text-[15.5px] text-[#444444] leading-[1.7] mt-4 font-normal">
+                        {currentItem.description}
+                      </p>
+
+                      {/* Micro Stats Grid (if available) */}
+                      {currentItem.stats && currentItem.stats.length > 0 && (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-6">
+                          {currentItem.stats.map((stat, sIdx) => (
+                            <div
+                              key={sIdx}
+                              className="bg-[#FAF8F5] rounded-xl border border-[#E5E0D5] p-3.5 sm:p-4 text-center"
+                            >
+                              <div className="text-lg sm:text-xl font-black text-[#8C1515] tracking-tight">
+                                {stat.value}
+                              </div>
+                              <div className="text-[11px] sm:text-xs font-medium text-[#666666] mt-0.5 leading-snug">
+                                {stat.label}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Key Highlights */}
+                      <div className="mt-8 pt-6 border-t border-[#E5E0D5]">
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#777777] mb-4">
+                          KEY HIGHLIGHTS &amp; OUTCOMES
+                        </h4>
+                        <ul className="space-y-3">
+                          {currentItem.keyHighlights.map((highlight, hIdx) => (
+                            <li key={hIdx} className="flex items-start space-x-3">
+                              <CheckCircle2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8C1515] shrink-0 mt-0.5" />
+                              <span className="text-[14px] sm:text-[15px] text-[#333333] leading-relaxed">
+                                {highlight}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Callout Box */}
+                      {currentItem.callout && (
+                        <div className="mt-7 bg-[#FAF8F5] border-l-4 border-[#8C1515] rounded-r-xl p-4 sm:p-5">
+                          <h5 className="text-xs sm:text-sm font-bold text-[#111111] uppercase tracking-wide">
+                            {currentItem.callout.title}
+                          </h5>
+                          <p className="text-xs sm:text-[13.5px] text-[#555555] leading-relaxed mt-1">
+                            {currentItem.callout.description}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Quick Stepper Bar */}
+                      <div className="mt-8 pt-5 border-t border-[#E5E0D5] flex items-center justify-between text-xs text-[#777777]">
+                        <span>
+                          Viewing {aimlDepartmentNutshellData.findIndex(i => i.id === currentItem.id) + 1} of {aimlDepartmentNutshellData.length} pillars
+                        </span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const currIdx = aimlDepartmentNutshellData.findIndex(i => i.id === currentItem.id);
+                              const prevIdx = (currIdx - 1 + aimlDepartmentNutshellData.length) % aimlDepartmentNutshellData.length;
+                              setActiveDeptTab(aimlDepartmentNutshellData[prevIdx].id);
+                            }}
+                            className="px-3 py-1.5 rounded-lg border border-[#E5E0D5] bg-[#FAF8F5] hover:bg-white hover:text-[#8C1515] font-semibold transition-colors cursor-pointer"
+                          >
+                            ← Previous
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const currIdx = aimlDepartmentNutshellData.findIndex(i => i.id === currentItem.id);
+                              const nextIdx = (currIdx + 1) % aimlDepartmentNutshellData.length;
+                              setActiveDeptTab(aimlDepartmentNutshellData[nextIdx].id);
+                            }}
+                            className="px-3 py-1.5 rounded-lg border border-[#E5E0D5] bg-[#FAF8F5] hover:bg-white hover:text-[#8C1515] font-semibold transition-colors cursor-pointer"
+                          >
+                            Next →
+                          </button>
+                        </div>
+                      </div>
+
+                    </motion.div>
+                  </AnimatePresence>
+                );
+              })()}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 11. Placement Stats Section */}
       <section id="aiml-placement-stats" className="w-full bg-[#8C1515] text-white py-14 sm:py-16 lg:py-20">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-8">

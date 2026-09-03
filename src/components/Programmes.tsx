@@ -7,7 +7,8 @@ import {
   Heart,
   ChevronRight, 
   Building2, 
-  Layers
+  Layers,
+  Microscope
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 
@@ -73,6 +74,8 @@ function StackingProgrammeCard({
       onNavigate("ise-program");
     } else if ((programme.name.includes("Artificial Intelligence") || programme.name.includes("AI & ML") || programme.name.includes("AI&ML")) && onNavigate) {
       onNavigate("aiml-program");
+    } else if ((programme.name.includes("Ph.D") || programme.name.includes("Research")) && onNavigate) {
+      onNavigate("research-programs");
     } else if (onOpenApplyModal) {
       onOpenApplyModal();
     }
@@ -418,6 +421,22 @@ export default function Programmes({ onOpenApplyModal, onNavigate }: ProgrammesP
           recruiters: "Apollo Hospitals • Manipal Hospitals • Fortis Healthcare • Aster Hospitals • Narayana Health • Columbia Asia",
           careers: ["Physiotherapist", "Sports Physiotherapist", "Rehabilitation Specialist", "Clinical Practitioner"],
           image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      id: "research_programs",
+      title: "Research Programs",
+      icon: Microscope,
+      programmes: [
+        {
+          name: "Ph.D. In CS, EC, ME, CV, Phy, Che, Mat, MBA",
+          categoryTag: "DOCTORAL RESEARCH & FELLOWSHIPS",
+          duration: "3 - 5 Years",
+          description: "VTU-approved Doctoral Research Centers offering Ph.D. programs across Computer Science (CS), Electronics & Communication (EC), Mechanical Engineering (ME), Civil Engineering (CV), Physics (Phy), Chemistry (Che), Mathematics (Mat), and Master of Business Administration (MBA). Supported by cutting-edge laboratories, funded research grants, and eminent doctoral faculty guides.",
+          recruiters: "IISc • ISRO • DRDO • IBM Research • Microsoft Research • Intel Labs • TCS Research • Infosys Labs",
+          careers: ["Research Scientist", "University Professor", "Principal R&D Specialist", "Chief Technology Officer", "Senior Research Fellow"],
+          image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80"
         }
       ]
     }
